@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-
     <!--  icon下载地址：https://www.iconfont.cn/collections/detail?spm=a313x.7781069.1998910419.de12df413&cid=9402&keyword=&page=  -->
     <!--  最多可以添加五个导航栏图标，建议title改成中文  -->
     <item
@@ -18,5 +17,11 @@
         android:id="@+id/navigation_notifications"
         android:icon="@drawable/ic_notifications_black_24dp"
         android:title="@string/title_notifications" />
+
+    <!--  Personal导航栏组件  -->
+    <item
+        android:id="@+id/navigation_personal"
+        android:icon="@drawable/personal"
+        android:title="@string/title_personal" />
 
 </menu>
