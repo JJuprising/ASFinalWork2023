@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // 本行是为了把标题栏去掉
-        getSupportActionBar()?.hide()
+        if (getSupportActionBar() != null) getSupportActionBar()?.hide()
 
         val navView: BottomNavigationView = binding.navView
 
