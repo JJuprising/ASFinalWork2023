@@ -22,15 +22,16 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // 初始化ViewModel
+        // 初始化ViewModel，通过ViewModelProvider获取与之对应的数据监听ViewModel，这里是HomeViewModel
         val homeViewModel =
             ViewModelProvider(this).get(HomeViewModel::class.java)
+
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
         val textView: TextView = binding.textHome
 
-        //添加数据监听与页面绑定，一旦text改变就会通知，textview就会刷新
+        //在Fragment中观察ViewModel中的LiveData,一旦数据变化,Fragment的UI也会自动更新。这里是textView。
         homeViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
