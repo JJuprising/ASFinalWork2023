@@ -21,7 +21,7 @@
     <!--  Personal导航栏组件  -->
     <item
         android:id="@+id/navigation_personal"
-        android:icon="@drawable/personal"
+        android:icon="@drawable/ic_personal_black_24dp"
         android:title="@string/title_personal" />
 
 </menu>
