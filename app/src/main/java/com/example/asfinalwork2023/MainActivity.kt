@@ -1,6 +1,8 @@
 package com.example.asfinalwork2023
 
 import android.os.Bundle
+import android.view.Window
+import android.view.WindowManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -8,6 +10,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.asfinalwork2023.databinding.ActivityMainBinding
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,10 +20,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
+
         setContentView(binding.root)
 
-        // 本行是为了把标题栏去掉
+        //如果要去掉标题栏，如下(1)所示，就不能在themes中设置NoActionBar，否则闪退；
+        //如果要设置自己的标题栏，就设置NoActionBar并且要设置好自己的toolbar，如下(2)所示，否则报错；
+
+        // 1.删除标题栏
         if (getSupportActionBar() != null) getSupportActionBar()?.hide()
+        //2.ActionBar替换为ToolBar
+//        setSupportActionBar(toolbar)
 
         val navView: BottomNavigationView = binding.navView
 

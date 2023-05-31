@@ -29,12 +29,12 @@ class PersonalFragment : Fragment() {
 
         _binding = FragmentPersonalBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        val textView: TextView = binding.textPersonal
-
-        //在Fragment中观察ViewModel中的LiveData,一旦数据变化,Fragment的UI也会自动更新。这里是textView。
-        personalViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
+//        val textView: TextView = binding.textPersonal
+//
+//        //在Fragment中观察ViewModel中的LiveData,一旦数据变化,Fragment的UI也会自动更新。这里是textView。
+//        personalViewModel.text.observe(viewLifecycleOwner) {
+//            textView.text = it
+//        }
         return root
     }
 
