@@ -13,8 +13,8 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
 
-        <!--    这里更改状态栏的颜色    -->
-        <item name="android:statusBarColor">?attr/colorSecondary</item>
+        <!--    这里更改状态栏的颜色   透明@android:color/transparent  -->
+        <item name="android:statusBarColor">@color/grey</item>
         <!-- Customize your theme here. -->
 
         <item name="android:navigationBarColor">#00000000</item> <!-- 设置导航栏背景色为透明 -->

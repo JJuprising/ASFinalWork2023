@@ -23,8 +23,8 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        //如果要去掉标题栏，如下(1)所示，就不能在themes中设置NoActionBar，否则闪退；
-        //如果要设置自己的标题栏，就设置NoActionBar并且要设置好自己的toolbar，如下(2)所示，否则报错；
+        //如果要去掉全部标题栏，如下(1)所示，就不能在themes中设置NoActionBar，否则闪退；
+        //如果要设置全部的标题栏，就设置NoActionBar并且要设置好toolbar，如下(2)所示，否则报错；
 
         // 1.删除标题栏
         if (getSupportActionBar() != null) getSupportActionBar()?.hide()

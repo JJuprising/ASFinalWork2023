@@ -5,9 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.example.asfinalwork2023.R
 import com.example.asfinalwork2023.databinding.FragmentPersonalBinding
+import com.example.asfinalwork2023.ui.home.HomeViewModel
+import com.google.android.material.appbar.CollapsingToolbarLayout
 
 class PersonalFragment : Fragment() {
 
@@ -19,11 +25,21 @@ class PersonalFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val PersonalViewModel = ViewModelProvider(this).get(PersonalViewModel::class.java)
         _binding = FragmentPersonalBinding.inflate(inflater, container, false)
-        //root为PersonalFragment的根视图
         val root: View = binding.root
-        val toolbar = root.findViewById<Toolbar>(R.id.personalToolbar)
-        toolbar.title = "Personal"
+        val collapsingToolbar = binding.personalCollapsingtoolbar
+
+        collapsingToolbar.title = "Collapsingtoolbar"
+
+        val imageView = binding.personalBackground
+        Glide.with(this).load(R.drawable.personalbackground).centerCrop().into(imageView)
+
+//        val testText = binding.testText
+
+        PersonalViewModel.text.observe(viewLifecycleOwner) {
+//            testText.text = it
+        }
         return root
     }
 
