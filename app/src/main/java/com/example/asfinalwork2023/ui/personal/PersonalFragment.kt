@@ -30,7 +30,7 @@ class PersonalFragment : Fragment() {
         val root: View = binding.root
         val collapsingToolbar = binding.personalCollapsingtoolbar
 
-        collapsingToolbar.title = "Collapsingtoolbar"
+//        collapsingToolbar.title = "Collapsingtoolbar"
 
         val imageView = binding.personalBackground
         Glide.with(this).load(R.drawable.personalbackground).centerCrop().into(imageView)

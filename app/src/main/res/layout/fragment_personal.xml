@@ -46,20 +46,20 @@
                     android:layout_marginTop="8dp">
 
                     <ImageView
-                        android:id="@+id/icon1"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/messageIcon"
+                        android:layout_width="63dp"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/personal"
                         android:layout_gravity="end|top"
-                        android:padding="0dp"/>
+                        android:padding="0dp"
+                        android:src="@drawable/message" />
 
                     <ImageView
-                        android:id="@+id/icon2"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/settingIcon"
+                        android:layout_width="45dp"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/nav_icon"
                         android:layout_gravity="end|top"
-                        android:padding="0dp"/>
+                        android:padding="0dp"
+                        android:src="@drawable/setting" />
 
                 </LinearLayout>
 
@@ -84,15 +84,15 @@
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
                     android:background="@color/teal_700"
-                    app:cardCornerRadius="10dp">
+                    android:layout_marginTop="0dp"
+                    app:cardCornerRadius="5dp">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
                         android:padding="10dp"
-                        android:background="@color/blue">
+                        android:background="@color/grey">
 
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/userImage"
@@ -119,9 +119,9 @@
                             android:layout_below="@id/login"
                             android:layout_toRightOf="@id/userImage"
                             android:layout_marginTop="8dp"
-                            android:layout_marginLeft="15dp"
+                            android:layout_marginLeft="14dp"
                             android:text="知晓阴晴冷暖"
-                            android:textColor="@color/grey"
+                            android:textColor="@color/blue"
                             android:textSize="12dp"/>
 
                     </RelativeLayout>
