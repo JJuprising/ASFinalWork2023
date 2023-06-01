@@ -20,4 +20,10 @@
         <item name="android:navigationBarColor">#00000000</item> <!-- 设置导航栏背景色为透明 -->
 
     </style>
+
+    <!--  给登录页设置没有ActionBar，为了后面设置ToolBar  -->
+    <style name="LoginTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+
+    </style>
+
 </resources>

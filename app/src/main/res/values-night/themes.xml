@@ -14,4 +14,9 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <!--  同样给登录页设置没有ActionBar，为了后面设置ToolBar  -->
+    <style name="LoginTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+
+    </style>
 </resources>
