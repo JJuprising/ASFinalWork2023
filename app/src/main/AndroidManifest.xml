@@ -13,11 +13,11 @@
         android:theme="@style/Theme.ASFinalWork2023"
         tools:targetApi="31">
 
-        <!--    添加了Login登录页的Activity    -->
+        <!--    添加了Login登录页的Activity，name一定要是.Ui.personal.Login的形式    -->
         <activity
             android:name=".ui.personal.Login"
             android:exported="false"
-            android:label="登录"
+            android:label=""
             android:theme="@style/LoginTheme">
             <meta-data
                 android:name="android.app.lib_name"

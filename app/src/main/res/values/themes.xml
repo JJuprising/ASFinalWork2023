@@ -23,7 +23,21 @@
 
     <!--  给登录页设置没有ActionBar，为了后面设置ToolBar  -->
     <style name="LoginTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
 
+        <!--    这里更改状态栏的颜色   透明@android:color/transparent  -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <!-- Customize your theme here. -->
+
+        <item name="android:navigationBarColor">#00000000</item> <!-- 设置导航栏背景色为透明 -->
     </style>
 
 </resources>
