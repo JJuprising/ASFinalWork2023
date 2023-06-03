@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import com.example.asfinalwork2023.R
+import kotlinx.android.synthetic.main.activity_passage_detail.*
 
 class PassageDetail : AppCompatActivity() {
     companion object {
@@ -18,6 +19,11 @@ class PassageDetail : AppCompatActivity() {
         val passageTitle = intent.getStringExtra(PASSAGE_TITLE) ?: "Default Title"
         val passageContent = intent.getStringExtra(PASSAGE_CONTENT) ?: "Default Content"
         val passageImage = intent.getIntExtra(PASSAGE_IMAGE, R.drawable.ic_delete)
+        PassageDetailTitle.text = passageTitle
+        PassageDetailImage.setImageResource(passageImage)
+        PassageDetailContent.text = passageContent
+
+
 
 
     }
