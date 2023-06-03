@@ -16,7 +16,7 @@ class PassageDetail : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_passage_detail)
         val passageTitle = intent.getStringExtra(PASSAGE_TITLE) ?: "Default Title"
-        val passageContent = intent.getStringExtra(PASSAGE_CONTENT) ?:"Default Content"
+        val passageContent = intent.getStringExtra(PASSAGE_CONTENT) ?: "Default Content"
         val passageImage = intent.getIntExtra(PASSAGE_IMAGE, R.drawable.ic_delete)
 
 
