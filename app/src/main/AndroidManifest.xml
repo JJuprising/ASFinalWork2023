@@ -44,6 +44,15 @@
             android:value="xQx4sfS5dFI7GQzeBknVxdEhPqm0G36K" />
         <!--    添加了Login登录页的Activity，name一定要是.Ui.personal.Login的形式    -->
         <activity
+            android:name=".ui.home.SelectCityActivity"
+            android:label="选择城市"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <!-- 添加了Login登录页的Activity，name一定要是.Ui.personal.Login的形式 -->
+        <activity
             android:name=".ui.personal.Login"
             android:exported="false"
             android:label=""
@@ -52,7 +61,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".MainActivity"
             android:exported="true"

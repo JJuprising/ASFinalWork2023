@@ -30,9 +30,9 @@ class MainActivity : AppCompatActivity() {
         //如果要设置全部的标题栏，就设置NoActionBar并且要设置好toolbar，如下(2)所示，否则报错；
 
         // 1.删除标题栏
-        if (getSupportActionBar() != null) getSupportActionBar()?.hide()
+//        if (getSupportActionBar() != null) getSupportActionBar()?.hide()
         //2.ActionBar替换为ToolBar
-//        setSupportActionBar(toolbar)
+        setSupportActionBar(toolBar)
 
         val navView: BottomNavigationView = binding.navView
 

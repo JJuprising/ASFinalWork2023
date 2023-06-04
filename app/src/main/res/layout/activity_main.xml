@@ -6,6 +6,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolBar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/teal_700"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
         android:layout_width="0dp"
@@ -19,6 +28,7 @@
         app:menu="@menu/bottom_nav_menu" />
         <!--  底部导航栏的改变在menu文件夹的bottom_nav_menu文件  -->
     <!--    xians-->
+    <!--  底部导航栏的改变在menu文件夹的bottom_nav_menu文件  -->
 
     <fragment
         android:id="@+id/nav_host_fragment_activity_main"
@@ -33,6 +43,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
         app:navGraph="@navigation/mobile_navigation" />
-        <!--  底部的导航栏的fragment  -->
+    <!--  底部的导航栏的fragment  -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
