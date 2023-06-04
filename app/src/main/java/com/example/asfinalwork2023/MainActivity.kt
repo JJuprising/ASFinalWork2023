@@ -1,16 +1,19 @@
 package com.example.asfinalwork2023
 
 import android.os.Bundle
-import android.view.Window
-import android.view.WindowManager
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.baidu.location.BDAbstractLocationListener
+import com.baidu.location.BDLocation
+import com.baidu.mapapi.map.MapView
 import com.example.asfinalwork2023.databinding.ActivityMainBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,11 +30,12 @@ class MainActivity : AppCompatActivity() {
         //如果要设置全部的标题栏，就设置NoActionBar并且要设置好toolbar，如下(2)所示，否则报错；
 
         // 1.删除标题栏
-        if (getSupportActionBar() != null) getSupportActionBar()?.hide()
+//        if (getSupportActionBar() != null) getSupportActionBar()?.hide()
         //2.ActionBar替换为ToolBar
-//        setSupportActionBar(toolbar)
+        setSupportActionBar(toolBar)
 
         val navView: BottomNavigationView = binding.navView
+
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         val appBarConfiguration = AppBarConfiguration(
@@ -42,5 +46,14 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
+
+
+
     }
+
+
+
+
+
+
 }
