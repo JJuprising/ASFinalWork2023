@@ -58,7 +58,7 @@ class DashboardFragment : Fragment() {
         }
         val button = binding.fab
         button.setOnClickListener{
-            val intent = Intent(context, MessagePost::class.java)
+            val intent = Intent(context, PassagePost::class.java)
             context!!.startActivity(intent)
 
         }

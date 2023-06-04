@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.dashboard.MessagePost"
+    tools:context=".ui.dashboard.PassagePost"
     android:orientation="vertical">
 
     <TextView
@@ -13,14 +13,14 @@
         android:text="文案"
         android:textAlignment="center"
         android:textSize="40dp"
-        android:id="@+id/NewPostTextView"
+        android:id="@+id/PassagePostTextView"
         />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:hint="快和别人分享自己吧~"
-        android:id="@+id/NewPostEditView"
+        android:id="@+id/PassagePostEditView"
         android:gravity="top|left">
 
     </EditText>
@@ -34,22 +34,22 @@
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:id="@+id/NewPostImage1">
+            android:id="@+id/PassagePostImage1">
         </ImageView>
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:id="@+id/NewPostImage2">
+            android:id="@+id/PassagePostImage2">
         </ImageView>
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:id="@+id/NewPostImage3">
+            android:id="@+id/PassagePostImage3">
         </ImageView>
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:id="@+id/NewPostImage4">
+            android:id="@+id/PassagePostImage4">
         </ImageView>
 
     </LinearLayout>
