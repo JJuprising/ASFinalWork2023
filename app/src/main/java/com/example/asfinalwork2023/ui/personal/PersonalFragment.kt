@@ -2,16 +2,19 @@ package com.example.asfinalwork2023.ui.personal
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.asfinalwork2023.R
 import com.example.asfinalwork2023.databinding.FragmentPersonalBinding
+import kotlinx.android.synthetic.main.activity_login.*
 
-class PersonalFragment : Fragment() {
+class PersonalFragment : Fragment(){
 
     private var _binding: FragmentPersonalBinding? = null
     private val binding get() = _binding!!
@@ -28,12 +31,8 @@ class PersonalFragment : Fragment() {
         //控制文本内容修改，暂不需
         //        val testText = binding.testText
         PersonalViewModel.text.observe(viewLifecycleOwner) {
-//            testText.text = it
+//2            testText.text = it
         }
-
-        // 修改一些标题栏的属性
-        val collapsingToolbar = binding.personalCollapsingtoolbar
-//        collapsingToolbar.title = ""
 
         // 添加一张图片到CollapsingToolbarLayout中作为上方背景
         val imageView = binding.personalBackground
@@ -51,8 +50,9 @@ class PersonalFragment : Fragment() {
             startActivity(intent)
         }
 
+        loginBtn.setOnClickListener {
 
-
+        }
 
         return root
     }
