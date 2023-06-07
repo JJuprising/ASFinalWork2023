@@ -13,7 +13,7 @@
         android:text="文案"
         android:textAlignment="center"
         android:textSize="40dp"
-        android:id="@+id/PassagePostTextView"
+
         />
 
     <EditText
@@ -24,35 +24,22 @@
         android:gravity="top|left">
 
     </EditText>
-    <LinearLayout
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp">
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/PassagePostImage1">
-        </ImageView>
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/PassagePostImage2">
-        </ImageView>
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/PassagePostImage3">
-        </ImageView>
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/PassagePostImage4">
-        </ImageView>
+        android:text="封面"
+        android:textAlignment="center"
+        android:textSize="40dp"
+        />
 
-    </LinearLayout>
+    <ImageView
+        android:id="@+id/PassagePostImage"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_gravity="center"
+        android:background="#E4E4E4">
+
+    </ImageView>
     <Button
         android:layout_width="200dp"
         android:layout_height="50dp"

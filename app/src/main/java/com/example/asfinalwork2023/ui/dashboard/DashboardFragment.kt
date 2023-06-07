@@ -36,10 +36,7 @@ class DashboardFragment : Fragment() {
     )
     private val passageList = ArrayList<PassageInfo>()
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         super.onCreate(savedInstanceState)
 
         val dashboardViewModel = ViewModelProvider(this).get(DashboardViewModel::class.java)
@@ -62,8 +59,6 @@ class DashboardFragment : Fragment() {
             context!!.startActivity(intent)
 
         }
-
-
         return root
     }
 

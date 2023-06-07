@@ -92,5 +92,20 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.asfinalwork2023.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+        <provider
+            android:name=".ui.dashboard.PassageDBProvider"
+            android:authorities="com.example.asfinalwork2023.provider"
+            android:enabled="true"
+            android:exported="true">
+        </provider>
     </application>
 </manifest>
