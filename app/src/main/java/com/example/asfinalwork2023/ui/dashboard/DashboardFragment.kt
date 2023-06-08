@@ -37,7 +37,7 @@ class DashboardFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         super.onCreate(savedInstanceState)
-
+        CreatDB()//创建数据库
 //        val dashboardViewModel = ViewModelProvider(this).get(DashboardViewModel::class.java)
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -66,8 +66,8 @@ class DashboardFragment : Fragment() {
     }
 
     fun CreatDB() {
-        var passages = mutableListOf(//默认数据
-            PassageInfoInt("Title1", "Content1", R.drawable.apple),
+//        var passages = mutableListOf(//默认数据
+//            PassageInfoInt("Title1", "Content1", R.drawable.apple),
 //            PassageInfoInt("Title2","Content2", R.drawable.banana),
 //            PassageInfoInt("Title3","Content3", R.drawable.cherry),
 //            PassageInfoInt("Title4","Content4", R.drawable.grape),
@@ -77,21 +77,21 @@ class DashboardFragment : Fragment() {
 //            PassageInfoInt("Title8","Content8", R.drawable.pineapple),
 //            PassageInfoInt("Title9","Content9", R.drawable.pear),
 //            PassageInfoInt("Title10","Content10", R.drawable.orange)
-        )
+//        )
         val dbHelper = PassageDBHelper(requireContext(), "Passage.db", 1)
         val db = dbHelper.writableDatabase
-        for (passage in passages) {
-            val drawable = resources.getDrawable(passage.picture)//从res文件夹获取图片
-            val bitmap = (drawable as BitmapDrawable).bitmap//转成bitmap
-            val stream = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)//图像压缩成流
-            val byteArray = stream.toByteArray()//转成字节数组
-            val values = ContentValues()//塞进数据类
-            values.put("title", passage.title);
-            values.put("content", passage.content);
-            values.put("picture", byteArray);
-            db.insert("Passage", null, values)//插入
-        }
+//        for (passage in passages) {
+//            val drawable = resources.getDrawable(passage.picture)//从res文件夹获取图片
+//            val bitmap = (drawable as BitmapDrawable).bitmap//转成bitmap
+//            val stream = ByteArrayOutputStream()
+//            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)//图像压缩成流
+//            val byteArray = stream.toByteArray()//转成字节数组
+//            val values = ContentValues()//塞进数据类
+//            values.put("title", passage.title);
+//            values.put("content", passage.content);
+//            values.put("picture", byteArray);
+//            db.insert("Passage", null, values)//插入
+//        }
     }
 
     fun ReadData() {//读取数据库，测试用
