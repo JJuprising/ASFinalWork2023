@@ -31,10 +31,11 @@ class DashboardFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private val passageList = ArrayList<PassageInfoInt>()
+    private val passageList = ArrayList<PassageInfoInt>()//装填进Adapter的列表
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
         super.onCreate(savedInstanceState)
 
 //        val dashboardViewModel = ViewModelProvider(this).get(DashboardViewModel::class.java)
@@ -43,32 +44,30 @@ class DashboardFragment : Fragment() {
 
         initPassage()//初始化文章流
 
-        val layoutManager = GridLayoutManager(context, 2)
-        val  recyclerView:RecyclerView = binding.recyclerView
+        val layoutManager = GridLayoutManager(context, 2)//设置网格布局
+        val recyclerView: RecyclerView = binding.recyclerView
         recyclerView.layoutManager = layoutManager
 
         val adapter = PassageAdapter(context!!, passageList)//填充adapter
         recyclerView.adapter = adapter
 
-        val swipeRefresh:SwipeRefreshLayout = binding.swipeRefresh
+        val swipeRefresh: SwipeRefreshLayout = binding.swipeRefresh//设置刷新动作
         swipeRefresh.setColorSchemeResources(R.color.purple_200)
         swipeRefresh.setOnRefreshListener {
             refreshPassage(adapter)
         }
-        val button = binding.fab
-        button.setOnClickListener{
+        val button = binding.fab//设置添加按钮动作
+        button.setOnClickListener {
             val intent = Intent(context, PassagePost::class.java)
             context!!.startActivity(intent)
-
-            //CreatDB()
-
+            //CreatDB()//新建数据库
         }
         return root
     }
 
-    fun CreatDB(){
-        var passages = mutableListOf(
-            PassageInfoInt("Title1","Content1", R.drawable.apple),
+    fun CreatDB() {
+        var passages = mutableListOf(//默认数据
+            PassageInfoInt("Title1", "Content1", R.drawable.apple),
 //            PassageInfoInt("Title2","Content2", R.drawable.banana),
 //            PassageInfoInt("Title3","Content3", R.drawable.cherry),
 //            PassageInfoInt("Title4","Content4", R.drawable.grape),
@@ -79,27 +78,26 @@ class DashboardFragment : Fragment() {
 //            PassageInfoInt("Title9","Content9", R.drawable.pear),
 //            PassageInfoInt("Title10","Content10", R.drawable.orange)
         )
-        val dbHelper = PassageDBHelper(requireContext(), "Passage.db",1)
+        val dbHelper = PassageDBHelper(requireContext(), "Passage.db", 1)
         val db = dbHelper.writableDatabase
-        for( passage in passages){
-            val drawable = resources.getDrawable(passage.picture)
-            val bitmap = (drawable as BitmapDrawable).bitmap
+        for (passage in passages) {
+            val drawable = resources.getDrawable(passage.picture)//从res文件夹获取图片
+            val bitmap = (drawable as BitmapDrawable).bitmap//转成bitmap
             val stream = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
-            val byteArray = stream.toByteArray()
-            val values = ContentValues()
-
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)//图像压缩成流
+            val byteArray = stream.toByteArray()//转成字节数组
+            val values = ContentValues()//塞进数据类
             values.put("title", passage.title);
             values.put("content", passage.content);
             values.put("picture", byteArray);
-
-            db.insert("Passage",null,values)
+            db.insert("Passage", null, values)//插入
         }
     }
-    fun ReadData(){
-        val dbHelper = PassageDBHelper(requireContext(), "Passage.db",1)
+
+    fun ReadData() {//读取数据库，测试用
+        val dbHelper = PassageDBHelper(requireContext(), "Passage.db", 1)
         val db = dbHelper.writableDatabase
-        // 查询Book表中所有的数据
+        // 查询表中所有的数据
         val cursor = db.query("Passage", null, null, null, null, null, null)
         if (cursor.moveToFirst()) {
             do {
@@ -121,20 +119,20 @@ class DashboardFragment : Fragment() {
         _binding = null
     }
 
-    override fun onResume() {
+    override fun onResume() {//回复到当前页时刷新一次
         super.onResume()
-        Log.d("Resume","Resume")
+        Log.d("Resume", "Resume")
         val adapter = PassageAdapter(context!!, passageList)//填充adapter
         recyclerView.adapter = adapter
         refreshPassage(adapter)
     }
 
-    private fun initPassage() {
+    private fun initPassage() {//初始化文章数据
         passageList.clear()
-        val dbHelper = PassageDBHelper(requireContext(), "Passage.db",1)
-        val db = dbHelper.writableDatabase
-        val cursor = db.query("Passage", null, null, null, null, null, "id desc")
-        val cw = CursorWindow("name", 5000000)
+        val dbHelper = PassageDBHelper(requireContext(), "Passage.db", 1)
+        val db = dbHelper.writableDatabase//获取数据库
+        val cursor = db.query("Passage", null, null, null, null, null, "id desc")//查询游标
+        val cw = CursorWindow("name", 5000000)//设置窗口大小，因为有二进制对象所以窗口必须很大
         val ac = cursor as AbstractWindowedCursor
         ac.window = cw
         if (cursor.moveToFirst()) {
@@ -145,12 +143,13 @@ class DashboardFragment : Fragment() {
                 val content = cursor.getString(cursor.getColumnIndex("content"))
 //                val picture = cursor.getBlob(cursor.getColumnIndex("picture"))
 
-                passageList.add(PassageInfoInt(title,content,id))
+                passageList.add(PassageInfoInt(title, content, id))//塞进填充进adapter的列表
             } while (cursor.moveToNext())
         }
         cursor.close()
     }
-    private fun refreshPassage(adapter: PassageAdapter) {
+
+    private fun refreshPassage(adapter: PassageAdapter) {//刷新动作
         thread {
             Thread.sleep(2000)
             requireActivity().runOnUiThread {

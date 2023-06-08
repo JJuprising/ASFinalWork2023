@@ -7,7 +7,7 @@ import android.database.Cursor
 import android.net.Uri
 import com.example.databasetest.later
 
-class PassageDBProvider: ContentProvider() {
+class PassageDBProvider : ContentProvider() {
 
     private val authority = "com.example.asfinalwork2023.provider"
     private var dbHelper: PassageDBHelper? = null
@@ -36,7 +36,15 @@ class PassageDBProvider: ContentProvider() {
         // 查询数据
         val db = it.readableDatabase
         val cursor = when (uriMatcher.match(uri)) {
-            passageDir -> db.query("Passage", projection, selection, selectionArgs, null, null, sortOrder)
+            passageDir -> db.query(
+                "Passage",
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                sortOrder
+            )
             passageItem -> {
                 val passageId = uri.pathSegments[1]
                 db.query("Passage", projection, "id = ?", arrayOf(passageId), null, null, sortOrder)
@@ -65,21 +73,27 @@ class PassageDBProvider: ContentProvider() {
         uriReturn
     }
 
-    override fun delete(uri: Uri, selection: String?, selectionArgs: Array<String>?) = dbHelper?.let {
-        // 删除数据
-        val db = it.writableDatabase
-        val deletedRows = when (uriMatcher.match(uri)) {
-            passageDir -> db.delete("Passage", selection, selectionArgs)
-            passageItem -> {
-                val passageId = uri.pathSegments[1]
-                db.delete("Passage", "id = ?", arrayOf(passageId))
+    override fun delete(uri: Uri, selection: String?, selectionArgs: Array<String>?) =
+        dbHelper?.let {
+            // 删除数据
+            val db = it.writableDatabase
+            val deletedRows = when (uriMatcher.match(uri)) {
+                passageDir -> db.delete("Passage", selection, selectionArgs)
+                passageItem -> {
+                    val passageId = uri.pathSegments[1]
+                    db.delete("Passage", "id = ?", arrayOf(passageId))
+                }
+                else -> 0
             }
-            else -> 0
-        }
-        deletedRows
-    } ?: 0
+            deletedRows
+        } ?: 0
 
-    override fun update(uri: Uri, values: ContentValues?, selection: String?, selectionArgs: Array<String>?) =
+    override fun update(
+        uri: Uri,
+        values: ContentValues?,
+        selection: String?,
+        selectionArgs: Array<String>?
+    ) =
         dbHelper?.let {
             // 更新数据
             val db = it.writableDatabase

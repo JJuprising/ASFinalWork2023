@@ -26,11 +26,11 @@ import java.io.FileOutputStream
 
 class PassagePost : AppCompatActivity() {
 
-    val takePhoto = 1
-    val fromAlbum = 2
-    lateinit var imageUri: Uri
+    private val takePhoto = 1
+    private val fromAlbum = 2
+    private lateinit var imageUri: Uri
     lateinit var outputImage: File
-    val dbHelper: PassageDBHelper = PassageDBHelper(this, "Passage.db", 1)
+    private val dbHelper: PassageDBHelper = PassageDBHelper(this, "Passage.db", 1)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_passage_post)
@@ -43,10 +43,8 @@ class PassagePost : AppCompatActivity() {
             outputImage.createNewFile()
             imageUri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 FileProvider.getUriForFile(
-                    this,
-                    "com.example.asfinalwork2023.fileprovider",
-                    outputImage
-                );
+                    this, "com.example.asfinalwork2023.fileprovider", outputImage
+                )
             } else {
                 Uri.fromFile(outputImage)
             }
@@ -64,7 +62,7 @@ class PassagePost : AppCompatActivity() {
             startActivityForResult(intent, fromAlbum)
         }
         PassagePostSubmitButton.setOnClickListener {
-            val currentImage = PassagePostImage.drawable
+            val currentImage = PassagePostImage.drawable//获取当前图像
             if (currentImage == null) {
                 Toast.makeText(this, "请上传封面~", 3).show()
             } else {
@@ -75,9 +73,8 @@ class PassagePost : AppCompatActivity() {
                     Toast.makeText(this, "请填写更长的标题", 3).show()
                 } else if (content.length < 5) {
                     Toast.makeText(this, "你可以写的再多一点喔", 3).show()
-                }
-                else{
-                    SubmitPost(title, content, bitmap)
+                } else {
+                    submitPost(title, content, bitmap)//提交文章数据
                 }
             }
         }
@@ -115,9 +112,7 @@ class PassagePost : AppCompatActivity() {
 
     private fun rotateIfRequired(bitmap: Bitmap): Bitmap {
         val exif = ExifInterface(outputImage.path)
-        val orientation =
-            exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)
-        return when (orientation) {
+        return when (exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)) {
             ExifInterface.ORIENTATION_ROTATE_90 -> rotateBitmap(bitmap, 90)
             ExifInterface.ORIENTATION_ROTATE_180 -> rotateBitmap(bitmap, 180)
             ExifInterface.ORIENTATION_ROTATE_270 -> rotateBitmap(bitmap, 270)
@@ -135,14 +130,14 @@ class PassagePost : AppCompatActivity() {
     }
 
     private fun saveBitmap(bmp: Bitmap) {
-        var tags = "saveBitmap"
-        var f = System.currentTimeMillis().toString() + ".jpg"
+        val tags = "saveBitmap"
+        val f = System.currentTimeMillis().toString() + ".jpg"
         val path = Environment.getExternalStorageDirectory().toString() + "/DCIM/"
-        val file: File = File(path + f)
-        var fos: FileOutputStream? = null;
+        val file= File(path + f)
+        var fos: FileOutputStream? = null
         try {
-            fos = FileOutputStream(file);
-            bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            fos = FileOutputStream(file)
+            bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos)
             Log.d(tags, "saved!")
         } catch (e: Exception) {
             Log.d(tags, "error!" + e.message)
@@ -152,28 +147,28 @@ class PassagePost : AppCompatActivity() {
         }
     }
 
-    private fun SubmitPost(title: String, content: String, Image: Bitmap) {
+    private fun submitPost(title: String, content: String, Image: Bitmap) {//提交文章动作
         // Convert Bitmap to byte array
         val stream = ByteArrayOutputStream()
-        Image.compress(Bitmap.CompressFormat.PNG, 100, stream)
-        val byteArray = stream.toByteArray()
+        Image.compress(Bitmap.CompressFormat.PNG, 100, stream)//压缩图片
+        val byteArray = stream.toByteArray()//转成字节数组
         if (byteArray.size < 100) {
             Toast.makeText(this, "请上传更大的封面~", 3).show()
         } else {
-            var passage = PassageInfoByte(title, content, byteArray)
-            SavePassagetoDB(passage)
+            val passage = PassageInfoByte(title, content, byteArray)
+            savePassagetoDB(passage)
             Toast.makeText(this, "发送成功", 3).show()
             finish()
         }
     }
 
-    private fun SavePassagetoDB(passage: PassageInfoByte) {
+    private fun savePassagetoDB(passage: PassageInfoByte) {//文章数据传入数据库
         val db = dbHelper.writableDatabase
         val values = ContentValues()
 
-        values.put("title", passage.title);
-        values.put("content", passage.content);
-        values.put("picture", passage.picture);
+        values.put("title", passage.title)
+        values.put("content", passage.content)
+        values.put("picture", passage.picture)
 
         db.insert("Passage", null, values)
 

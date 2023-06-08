@@ -22,23 +22,23 @@ class PassageDetail : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_passage_detail)
-        val passageTitle = intent.getStringExtra(PASSAGE_TITLE) ?: "Default Title"
-        val passageContent = intent.getStringExtra(PASSAGE_CONTENT) ?: "Default Content"
-        val passageImageID = intent.getIntExtra(PASSAGE_IMAGE,1)?:1
-        val db = PassageDBHelper(this,"Passage.db",1).writableDatabase
-        val cursor = db.query("Passage",null,"id=?", arrayOf(passageImageID.toString()),null,null,null)
+        val passageTitle = intent.getStringExtra(PASSAGE_TITLE) ?: "Default Title"//标题，string类型
+        val passageContent = intent.getStringExtra(PASSAGE_CONTENT) ?: "Default Content"//内容，string类型
+        val passageImageID = intent.getIntExtra(PASSAGE_IMAGE, 1) ?: 1//数据库内文章行的id，int型
+        //用id找图片
+        val db = PassageDBHelper(this, "Passage.db", 1).writableDatabase
+        val cursor =
+            db.query("Passage", null, "id=?", arrayOf(passageImageID.toString()), null, null, null)
         val cw = CursorWindow("name", 5000000)
         val ac = cursor as AbstractWindowedCursor
         ac.window = cw
-        if(cursor.moveToFirst()){
+        if (cursor.moveToFirst()) {
             val array = cursor.getBlob(cursor.getColumnIndex("picture"))
             val bitmap = BitmapFactory.decodeByteArray(array, 0, array.size)
-            Glide.with(this).load(bitmap).into(PassageDetailImage);
+            Glide.with(this).load(bitmap).into(PassageDetailImage);//设置图片
         }
-        PassageDetailTitle.text = passageTitle
-        PassageDetailContent.text = passageContent
-
-
+        PassageDetailTitle.text = passageTitle//设置标题
+        PassageDetailContent.text = passageContent//设置内容
 
 
     }
