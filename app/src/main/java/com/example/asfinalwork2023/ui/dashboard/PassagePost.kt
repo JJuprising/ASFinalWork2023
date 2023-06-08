@@ -30,11 +30,11 @@ class PassagePost : AppCompatActivity() {
     val fromAlbum = 2
     lateinit var imageUri: Uri
     lateinit var outputImage: File
-    val dbHelper:PassageDBHelper = PassageDBHelper(this,"Passage.db",1)
+    val dbHelper: PassageDBHelper = PassageDBHelper(this, "Passage.db", 1)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_passage_post)
-        PassagePostImage.setOnClickListener{
+        PassagePostImage.setOnClickListener {
             // 创建File对象存储拍照后的图片
             outputImage = File(externalCacheDir, "output_image.jpg")
             if (outputImage.exists()) {
@@ -42,7 +42,11 @@ class PassagePost : AppCompatActivity() {
             }
             outputImage.createNewFile()
             imageUri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                FileProvider.getUriForFile(this, "com.example.asfinalwork2023.fileprovider", outputImage);
+                FileProvider.getUriForFile(
+                    this,
+                    "com.example.asfinalwork2023.fileprovider",
+                    outputImage
+                );
             } else {
                 Uri.fromFile(outputImage)
             }
@@ -61,22 +65,34 @@ class PassagePost : AppCompatActivity() {
         }
         PassagePostSubmitButton.setOnClickListener {
             val currentImage = PassagePostImage.drawable
-            val bitmap: Bitmap = (currentImage as BitmapDrawable).bitmap
-            val title = PassagePostTitle.text.toString()
-            val content = PassagePostContent.text.toString()
-            SubmitPost(title,content,bitmap)
+            if (currentImage == null) {
+                Toast.makeText(this, "请上传封面~", 3).show()
+            } else {
+                val title = PassagePostTitle.text.toString()
+                val content = PassagePostContent.text.toString()
+                val bitmap: Bitmap = (currentImage as BitmapDrawable).bitmap
+                if (title.length < 3) {
+                    Toast.makeText(this, "请填写更长的标题", 3).show()
+                } else if (content.length < 5) {
+                    Toast.makeText(this, "你可以写的再多一点喔", 3).show()
+                }
+                else{
+                    SubmitPost(title, content, bitmap)
+                }
+            }
         }
 
 
-
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
             takePhoto -> {
                 if (resultCode == Activity.RESULT_OK) {
                     // 将拍摄的照片显示出来
-                    val bitmap = BitmapFactory.decodeStream(contentResolver.openInputStream(imageUri))
+                    val bitmap =
+                        BitmapFactory.decodeStream(contentResolver.openInputStream(imageUri))
                     saveBitmap(bitmap)
                     PassagePostImage.setImageBitmap(rotateIfRequired(bitmap))
                 }
@@ -92,13 +108,15 @@ class PassagePost : AppCompatActivity() {
             }
         }
     }
+
     private fun getBitmapFromUri(uri: Uri) = contentResolver.openFileDescriptor(uri, "r")?.use {
         BitmapFactory.decodeFileDescriptor(it.fileDescriptor)
     }
 
     private fun rotateIfRequired(bitmap: Bitmap): Bitmap {
         val exif = ExifInterface(outputImage.path)
-        val orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)
+        val orientation =
+            exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)
         return when (orientation) {
             ExifInterface.ORIENTATION_ROTATE_90 -> rotateBitmap(bitmap, 90)
             ExifInterface.ORIENTATION_ROTATE_180 -> rotateBitmap(bitmap, 180)
@@ -110,12 +128,13 @@ class PassagePost : AppCompatActivity() {
     private fun rotateBitmap(bitmap: Bitmap, degree: Int): Bitmap {
         val matrix = Matrix()
         matrix.postRotate(degree.toFloat())
-        val rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
+        val rotatedBitmap =
+            Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
         bitmap.recycle()
         return rotatedBitmap
     }
 
-    private  fun saveBitmap(bmp: Bitmap) {
+    private fun saveBitmap(bmp: Bitmap) {
         var tags = "saveBitmap"
         var f = System.currentTimeMillis().toString() + ".jpg"
         val path = Environment.getExternalStorageDirectory().toString() + "/DCIM/"
@@ -133,19 +152,22 @@ class PassagePost : AppCompatActivity() {
         }
     }
 
-    private fun SubmitPost(title:String,content:String,Image:Bitmap){
+    private fun SubmitPost(title: String, content: String, Image: Bitmap) {
         // Convert Bitmap to byte array
         val stream = ByteArrayOutputStream()
         Image.compress(Bitmap.CompressFormat.PNG, 100, stream)
         val byteArray = stream.toByteArray()
-        var passage = PassageInfoByte(title,content,byteArray)
-        SavePassagetoDB(passage)
-
-        Toast.makeText(this,"Finish",3).show()
-        finish()
+        if (byteArray.size < 100) {
+            Toast.makeText(this, "请上传更大的封面~", 3).show()
+        } else {
+            var passage = PassageInfoByte(title, content, byteArray)
+            SavePassagetoDB(passage)
+            Toast.makeText(this, "发送成功", 3).show()
+            finish()
+        }
     }
 
-    private fun SavePassagetoDB(passage:PassageInfoByte){
+    private fun SavePassagetoDB(passage: PassageInfoByte) {
         val db = dbHelper.writableDatabase
         val values = ContentValues()
 
@@ -153,7 +175,7 @@ class PassagePost : AppCompatActivity() {
         values.put("content", passage.content);
         values.put("picture", passage.picture);
 
-        db.insert("Passage",null,values)
+        db.insert("Passage", null, values)
 
     }
 }

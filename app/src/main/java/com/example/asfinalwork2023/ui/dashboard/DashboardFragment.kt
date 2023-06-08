@@ -60,6 +60,8 @@ class DashboardFragment : Fragment() {
             val intent = Intent(context, PassagePost::class.java)
             context!!.startActivity(intent)
 
+            //CreatDB()
+
         }
         return root
     }
@@ -67,15 +69,15 @@ class DashboardFragment : Fragment() {
     fun CreatDB(){
         var passages = mutableListOf(
             PassageInfoInt("Title1","Content1", R.drawable.apple),
-            PassageInfoInt("Title2","Content2", R.drawable.banana),
-            PassageInfoInt("Title3","Content3", R.drawable.cherry),
-            PassageInfoInt("Title4","Content4", R.drawable.grape),
-            PassageInfoInt("Title5","Content5", R.drawable.mango),
-            PassageInfoInt("Title6","Content6", R.drawable.watermelon),
-            PassageInfoInt("Title7","Content7", R.drawable.strawberry),
-            PassageInfoInt("Title8","Content8", R.drawable.pineapple),
-            PassageInfoInt("Title9","Content9", R.drawable.pear),
-            PassageInfoInt("Title10","Content10", R.drawable.orange)
+//            PassageInfoInt("Title2","Content2", R.drawable.banana),
+//            PassageInfoInt("Title3","Content3", R.drawable.cherry),
+//            PassageInfoInt("Title4","Content4", R.drawable.grape),
+//            PassageInfoInt("Title5","Content5", R.drawable.mango),
+//            PassageInfoInt("Title6","Content6", R.drawable.watermelon),
+//            PassageInfoInt("Title7","Content7", R.drawable.strawberry),
+//            PassageInfoInt("Title8","Content8", R.drawable.pineapple),
+//            PassageInfoInt("Title9","Content9", R.drawable.pear),
+//            PassageInfoInt("Title10","Content10", R.drawable.orange)
         )
         val dbHelper = PassageDBHelper(requireContext(), "Passage.db",1)
         val db = dbHelper.writableDatabase
@@ -119,7 +121,13 @@ class DashboardFragment : Fragment() {
         _binding = null
     }
 
-
+    override fun onResume() {
+        super.onResume()
+        Log.d("Resume","Resume")
+        val adapter = PassageAdapter(context!!, passageList)//填充adapter
+        recyclerView.adapter = adapter
+        refreshPassage(adapter)
+    }
 
     private fun initPassage() {
         passageList.clear()
