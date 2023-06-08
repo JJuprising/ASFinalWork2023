@@ -15,15 +15,19 @@
         android:textSize="40dp"
 
         />
-
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="50dp"
+        android:hint="标题~"
+        android:id="@+id/PassagePostTitle"
+        android:gravity="top|left"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
         android:hint="快和别人分享自己吧~"
-        android:id="@+id/PassagePostEditView"
-        android:gravity="top|left">
+        android:id="@+id/PassagePostContent"
+        android:gravity="top|left"/>
 
-    </EditText>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -31,7 +35,10 @@
         android:textAlignment="center"
         android:textSize="40dp"
         />
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
     <ImageView
         android:id="@+id/PassagePostImage"
         android:layout_width="250dp"
@@ -44,7 +51,14 @@
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
+        android:text="从相册中选择"
+        android:id="@+id/PassagePostAlbumButton"/>
+    </LinearLayout>
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
         android:text="发送"
-        android:id="@+id/NewPostButton"/>
+        android:id="@+id/PassagePostSubmitButton"/>
 
 </LinearLayout>
