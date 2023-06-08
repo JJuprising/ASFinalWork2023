@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.asfinalwork2023.R
 
@@ -20,9 +21,8 @@ class CityAdapter(val cityList: List<City>) : RecyclerView.Adapter<CityAdapter.V
         val view = LayoutInflater.from(parent.context).inflate(R.layout.city_item, parent, false)
         val holder = ViewHolder(view)
         holder.cityItem.setOnClickListener {
-            val bundle = Bundle()
             val value = holder.locateId.text
-            Log.d("adapter",value.toString())
+//            Log.d("adapter",value.toString())
             LocateID.locate = value.toString()
             ActivityCollector.finishAll()
         }

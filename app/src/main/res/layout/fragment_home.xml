@@ -2,21 +2,19 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/homeBar"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
-        >
+        android:layout_height="500dp">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/homeCollapsingToolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:theme="@style/ThemeOverlay.AppCompat.Light"
-            app:contentScrim="@color/teal_700"
+            app:contentScrim="#3F51B5"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView
@@ -30,43 +28,78 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <TextView
-                    android:id="@+id/temperature"
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_width="105dp"
                     android:layout_height="wrap_content"
-                    android:layout_above="@+id/feelsLike"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginBottom="5dp"
-                    android:textColor="@color/white"
-                    android:textSize="48sp" />
+                    android:layout_toStartOf="@+id/dev"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="5dp">
 
-                <TextView
-                    android:id="@+id/weather"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_above="@+id/feelsLike"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_toRightOf="@+id/temperature"
-                    android:textColor="@color/white"
-                    android:textSize="48sp" />
+                    <TextView
+                        android:id="@+id/temperature"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="68sp" />
 
-                <TextView
-                    android:id="@+id/feelsLike"
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@+id/temperature"
+                        android:layout_alignTop="@+id/temperature"
+                        android:layout_marginEnd="5dp"
+                        android:text="℃"
+                        android:textColor="@color/white"
+                        android:textSize="28sp"/>
+
+                    <TextView
+                        android:id="@+id/feelsLike"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/temperature"
+                        android:textColor="@color/white"
+                        android:textSize="18sp" />
+
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/dev"
+                    android:layout_width="8dp"
+                    android:layout_height="80dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_line" />
+
+                <RelativeLayout
+                    android:layout_width="105dp"
                     android:layout_height="wrap_content"
-                    android:layout_above="@+id/wind"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginBottom="5dp"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
+                    android:layout_toEndOf="@+id/dev"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="5dp">
+
+                    <ImageView
+                        android:id="@+id/weatherIcon"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:layout_centerHorizontal="true" />
+
+                    <TextView
+                        android:id="@+id/weather"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/weatherIcon"
+                        android:layout_centerHorizontal="true"
+                        android:textColor="@color/white"
+                        android:textSize="18sp" />
+
+                </RelativeLayout>
 
                 <TextView
                     android:id="@+id/wind"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_above="@+id/air"
-                    android:layout_marginLeft="20dp"
+                    android:layout_above="@+id/kong"
+                    android:layout_marginStart="20dp"
                     android:layout_marginBottom="5dp"
                     android:textColor="@color/white"
                     android:textSize="18sp" />
@@ -76,18 +109,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginLeft="20dp"
+                    android:layout_toEndOf="@+id/kong"
                     android:layout_marginBottom="15dp"
-                    android:text="空气质量：优"
-                    android:textColor="@color/white"
                     android:textSize="18sp" />
 
-                <ImageView
-                    android:id="@+id/weatherIcon"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_above="@id/temperature"
-                    android:layout_marginLeft="10dp" />
+                <TextView
+                    android:id="@+id/kong"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginStart="20dp"
+                    android:textSize="18sp"
+                    android:textColor="@color/white"
+                    android:text="空气质量：" />
 
             </RelativeLayout>
 
@@ -99,11 +134,12 @@
 
                 <TextView
                     android:id="@+id/location"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:textSize="26sp"
+                    android:textAlignment="center"
                     android:textColor="@color/white"
-                    android:textAlignment="center" />
+                    android:textSize="26sp"
+                    app:drawableLeftCompat="@drawable/nav_location" />
 
             </androidx.appcompat.widget.Toolbar>
 
@@ -114,30 +150,423 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
+        android:background="#F4F4F4"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
+<!--            未来24小时卡片-->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="35dp"
-                app:cardCornerRadius="4dp">
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                app:contentPadding="5dp"
+                android:padding="10dp"
+                app:cardElevation="5dp"
+                app:cardCornerRadius="5dp">
 
-                <TextView
-                    android:id="@+id/weatherContent"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp" />
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:text="未来24小时天气"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/hourlyRecyclerView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal" />
+
+                </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
+<!--            未来七天天气卡片-->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                app:contentPadding="5dp"
+                android:padding="10dp"
+                app:cardElevation="5dp"
+                app:cardCornerRadius="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:text="未来七天天气"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/dailyRecyclerView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="5dp"/>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+<!--            生活指数卡片-->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                app:contentPadding="5dp"
+                android:layout_marginBottom="50dp"
+                app:cardElevation="5dp"
+                app:cardCornerRadius="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:text="生活指数"/>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <RelativeLayout
+                            android:id="@+id/washCarRelative"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="5dp">
+
+                            <ImageView
+                                android:id="@+id/washCarIcon"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_marginStart="20dp"
+                                android:src="@drawable/ic_washcar"/>
+
+                            <TextView
+                                android:id="@+id/washCarName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_horizontal"
+                                android:layout_below="@+id/washCarIcon"
+                                android:textSize="16sp"
+                                android:text="洗车指数"/>
+
+                            <TextView
+                                android:id="@+id/washCarText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_horizontal"
+                                android:layout_below="@+id/washCarName"
+                                android:textSize="18sp"
+                                android:textColor="@color/black"/>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/sportRelative"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_toEndOf="@+id/washCarRelative">
+
+                            <ImageView
+                                android:id="@+id/sportIcon"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_marginStart="20dp"
+                                android:src="@drawable/ic_sports"/>
+
+                            <TextView
+                                android:id="@+id/sportName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_horizontal"
+                                android:layout_below="@+id/sportIcon"
+                                android:textSize="16sp"
+                                android:text="运动指数"/>
+
+                            <TextView
+                                android:id="@+id/sportText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_horizontal"
+                                android:layout_below="@+id/sportName"
+                                android:textSize="18sp"
+                                android:textColor="@color/black"/>
+
+                    </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/clothesRelative"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_toEndOf="@+id/sportRelative">
+
+                            <ImageView
+                                android:id="@+id/clothesIcon"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_marginStart="20dp"
+                                android:src="@drawable/ic_clothes"/>
+
+                            <TextView
+                                android:id="@+id/clothesName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_horizontal"
+                                android:layout_below="@+id/clothesIcon"
+                                android:textSize="16sp"
+                                android:text="穿衣指数"/>
+
+                            <TextView
+                                android:id="@+id/clothesText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_horizontal"
+                                android:layout_below="@+id/clothesName"
+                                android:textSize="18sp"
+                                android:textColor="@color/black"/>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/UVRelative"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_toEndOf="@+id/clothesRelative">
+
+                            <ImageView
+                                android:id="@+id/UVIcon"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_marginStart="20dp"
+                                android:src="@drawable/ic_uv"/>
+
+                            <TextView
+                                android:id="@+id/UVName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_horizontal"
+                                android:layout_below="@+id/UVIcon"
+                                android:textSize="18sp"
+                                android:text="紫外线"/>
+
+                            <TextView
+                                android:id="@+id/UVText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_horizontal"
+                                android:layout_below="@+id/UVName"
+                                android:textSize="18sp"
+                                android:textColor="@color/black"/>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/tripRelative"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_below="@+id/washCarRelative">
+
+                            <ImageView
+                                android:id="@+id/tripIcon"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_marginStart="20dp"
+                                android:src="@drawable/ic_trip"/>
+
+                            <TextView
+                                android:id="@+id/tripName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_horizontal"
+                                android:layout_below="@+id/tripIcon"
+                                android:textSize="18sp"
+                                android:text="旅游指数"/>
+
+                            <TextView
+                                android:id="@+id/tripText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_horizontal"
+                                android:layout_below="@+id/tripName"
+                                android:textSize="18sp"
+                                android:textColor="@color/black"/>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/comftRelative"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_below="@+id/sportRelative"
+                            android:layout_toEndOf="@+id/tripRelative">
+
+                            <ImageView
+                                android:id="@+id/comftIcon"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_marginStart="20dp"
+                                android:src="@drawable/ic_comft"/>
+
+                            <TextView
+                                android:id="@+id/comftName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_horizontal"
+                                android:layout_below="@+id/comftIcon"
+                                android:textSize="18sp"
+                                android:text="舒适度"/>
+
+                            <TextView
+                                android:id="@+id/comftText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_horizontal"
+                                android:layout_below="@+id/comftName"
+                                android:textSize="18sp"
+                                android:textColor="@color/black"/>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/trafficRelative"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_below="@+id/clothesRelative"
+                            android:layout_toEndOf="@+id/comftRelative">
+
+                            <ImageView
+                                android:id="@+id/trafficIcon"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_marginStart="20dp"
+                                android:src="@drawable/ic_traffic"/>
+
+                            <TextView
+                                android:id="@+id/trafficName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_horizontal"
+                                android:layout_below="@+id/trafficIcon"
+                                android:textSize="18sp"
+                                android:text="交通指数"/>
+
+                            <TextView
+                                android:id="@+id/trafficText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_horizontal"
+                                android:layout_below="@+id/trafficName"
+                                android:textSize="18sp"
+                                android:textColor="@color/black"/>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/spiRelative"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_below="@+id/UVRelative"
+                            android:layout_toEndOf="@+id/trafficRelative">
+
+                            <ImageView
+                                android:id="@+id/spiIcon"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_marginStart="20dp"
+                                android:src="@drawable/ic_spi"/>
+
+                            <TextView
+                                android:id="@+id/spiName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_horizontal"
+                                android:layout_below="@+id/spiIcon"
+                                android:textSize="18sp"
+                                android:text="防晒指数"/>
+
+                            <TextView
+                                android:id="@+id/spiText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_horizontal"
+                                android:layout_below="@+id/spiName"
+                                android:textSize="18sp"
+                                android:textColor="@color/black"/>
+
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+<!--            <com.google.android.material.card.MaterialCardView-->
+<!--                android:layout_width="400dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center_horizontal"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                app:contentPadding="5dp"-->
+<!--                app:cardElevation="5dp"-->
+<!--                app:cardCornerRadius="5dp">-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center_horizontal"-->
+<!--                    android:orientation="vertical">-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:textSize="18sp"-->
+<!--                        android:text="空气质量"/>-->
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:textSize="18sp"-->
+<!--                        android:drawableLeft="@drawable/arrow_right"-->
+<!--                        android:text="PM10" />-->
+
+<!--                </LinearLayout>-->
+
+<!--            </com.google.android.material.card.MaterialCardView>-->
 
         </LinearLayout>
 

@@ -32,11 +32,11 @@
     android:layout_height="match_parent"
     tools:context=".ui.notifications.NotificationsFragment">
 <!--    xians-->
-    <com.baidu.mapapi.map.MapView
-        android:id="@+id/bmapView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clickable="true" />
+<!--    <com.baidu.mapapi.map.MapView-->
+<!--        android:id="@+id/bmapView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:clickable="true" />-->
     <TextView
         android:id="@+id/text_notifications"
         android:layout_width="match_parent"

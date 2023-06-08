@@ -55,6 +55,8 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.0.1'
     implementation 'com.squareup.okhttp3:okhttp:4.8.1'
     implementation 'com.google.code.gson:gson:2.8.8'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+    implementation 'com.jjoe64:graphview:4.2.2'
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
@@ -65,7 +67,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.4.1'
     implementation 'androidx.navigation:navigation-ui-ktx:2.4.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation files('libs\\BaiduLBS_Android.jar') //百度地图sdk
+//    implementation files('libs\\BaiduLBS_Android.jar') //百度地图sdk
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

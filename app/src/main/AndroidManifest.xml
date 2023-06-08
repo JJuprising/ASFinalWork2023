@@ -63,7 +63,8 @@
         <activity
             android:name=".ui.home.SelectCityActivity"
             android:label="选择城市"
-            android:exported="false">
+            android:exported="false"
+            android:theme="@style/SelectTheme">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
