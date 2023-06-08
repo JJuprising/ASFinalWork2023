@@ -4,15 +4,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="500dp"
     tools:context=".ui.home.HomeFragment">
     <!--android:fitsSystemWindows="true"-->
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/personalAppbar"
-            android:layout_width="match_parent"
-            android:layout_height="150dp">
-            <!--android:fitsSystemWindows="true"-->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/personalAppbar"
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+        <!--android:fitsSystemWindows="true"-->
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/personalCollapsingtoolbar"
@@ -29,7 +29,7 @@
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 app:layout_collapseMode="parallax"/>
-                <!--android:fitsSystemWindows="true"-->
+            <!--android:fitsSystemWindows="true"-->
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/personalToolbar"
@@ -46,12 +46,12 @@
                     android:layout_marginTop="8dp">
 
                     <ImageView
-                        android:id="@+id/messageIcon"
-                        android:layout_width="63dp"
+                        android:id="@+id/luckIcon"
+                        android:layout_width="44dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end|top"
                         android:padding="0dp"
-                        android:src="@drawable/message" />
+                        android:src="@drawable/luck" />
 
                     <ImageView
                         android:id="@+id/settingIcon"
@@ -66,10 +66,10 @@
             </androidx.appcompat.widget.Toolbar>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
-        </com.google.android.material.appbar.AppBarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
-        <!--    对应非图片部分    -->
-        <!--    书本上给的是NestedScrollView是因为嵌套相应滚动事件    -->
+    <!--    对应非图片部分    -->
+    <!--    书本上给的是NestedScrollView是因为嵌套相应滚动事件    -->
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -239,6 +239,8 @@
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
+
+
 
         </LinearLayout>
 

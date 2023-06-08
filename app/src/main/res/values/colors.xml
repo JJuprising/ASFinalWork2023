@@ -11,4 +11,7 @@
     <color name="orange">#FFC107</color>
     <color name="yellow">#FFEB3B</color>
     <color name="grey">#D6ECEA</color>
+    <color name="purple">#673AB7</color>
+    <color name="red">#FB8C00</color>
+    <color name="pink">#448AFF</color>
 </resources>

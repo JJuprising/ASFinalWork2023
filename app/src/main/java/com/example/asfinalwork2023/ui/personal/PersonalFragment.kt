@@ -83,6 +83,13 @@ class PersonalFragment : Fragment(){
             startActivity(intent)
         }
 
+        //点击“运势”图标可以跳转到运势页
+        val luckIcon = binding.luckIcon
+        luckIcon.setOnClickListener {
+            val intent = Intent(requireContext(),LuckActivity::class.java)
+            startActivity(intent)
+        }
+
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             val channel = NotificationChannel("notification","天气预警",NotificationManager.IMPORTANCE_DEFAULT)
             manager.createNotificationChannel(channel)
