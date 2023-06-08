@@ -125,7 +125,7 @@ class DashboardFragment : Fragment() {
         passageList.clear()
         val dbHelper = PassageDBHelper(requireContext(), "Passage.db",1)
         val db = dbHelper.writableDatabase
-        val cursor = db.query("Passage", null, null, null, null, null, null)
+        val cursor = db.query("Passage", null, null, null, null, null, "id desc")
         val cw = CursorWindow("name", 5000000)
         val ac = cursor as AbstractWindowedCursor
         ac.window = cw

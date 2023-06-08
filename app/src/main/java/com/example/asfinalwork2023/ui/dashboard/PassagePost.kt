@@ -133,9 +133,6 @@ class PassagePost : AppCompatActivity() {
         }
     }
 
-
-
-
     private fun SubmitPost(title:String,content:String,Image:Bitmap){
         // Convert Bitmap to byte array
         val stream = ByteArrayOutputStream()
@@ -145,7 +142,9 @@ class PassagePost : AppCompatActivity() {
         SavePassagetoDB(passage)
 
         Toast.makeText(this,"Finish",3).show()
+        finish()
     }
+
     private fun SavePassagetoDB(passage:PassageInfoByte){
         val db = dbHelper.writableDatabase
         val values = ContentValues()
