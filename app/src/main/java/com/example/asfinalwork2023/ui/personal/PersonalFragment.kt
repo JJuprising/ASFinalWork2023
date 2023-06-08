@@ -8,23 +8,20 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.asfinalwork2023.R
 import com.example.asfinalwork2023.databinding.FragmentPersonalBinding
-import kotlinx.android.synthetic.main.fragment_personal.*
+import kotlinx.android.synthetic.main.activity_login.*
 
 class PersonalFragment : Fragment(){
-
-//    var login:Login = Login()
     var loginState:String = "未登录"
-
     private var _binding: FragmentPersonalBinding? = null
     private val binding get() = _binding!!
     private lateinit var personalViewModel: PersonalViewModel

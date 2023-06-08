@@ -10,9 +10,6 @@ import kotlinx.android.synthetic.main.activity_login.*
 
 
 class Login : AppCompatActivity() {
-//    companion object {
-//         var loginState = "未登录"
-//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
