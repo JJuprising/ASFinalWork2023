@@ -50,9 +50,6 @@ class PersonalFragment : Fragment(){
             startActivity(intent)
         }
 
-        loginBtn.setOnClickListener {
-
-        }
 
         return root
     }

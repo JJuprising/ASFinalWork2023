@@ -1,6 +1,7 @@
 package com.example.asfinalwork2023.ui.home
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,21 +10,24 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.asfinalwork2023.R
 import com.example.asfinalwork2023.databinding.FragmentHomeBinding
+import com.example.asfinalwork2023.ui.notifications.NotificationsFragment
 import com.google.gson.Gson
+import com.google.gson.JsonObject
+import lecho.lib.hellocharts.model.*
+import lecho.lib.hellocharts.util.ChartUtils
+import lecho.lib.hellocharts.view.LineChartView
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import okhttp3.internal.checkDuration
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
 import kotlin.concurrent.thread
-import kotlin.math.log
 
 class HomeFragment : Fragment() {
+
 
     private var _binding: FragmentHomeBinding? = null
 
@@ -45,6 +49,18 @@ class HomeFragment : Fragment() {
     private lateinit var weatherContent: TextView
     private lateinit var location: TextView
 
+
+    //折线图
+    private lateinit var chart: LineChartView
+    private var maxNumberOfLines: Int = 4;
+    private var numberOfPoints: Int = 24; //显示几个点
+    private var number: Int = 50; //纵轴最大值
+    private var yTop: Int = 50; //纵轴最大值
+    private var yBottom: Int = 50; //纵轴最大值
+    private val randomNumbersTab = Array(maxNumberOfLines) { FloatArray(numberOfPoints) }
+    private var shape: ValueShape = ValueShape.CIRCLE
+    private var hourlyTime: List<String>?=null
+    private var hourlyTemp: List<Int>?=null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -72,7 +88,137 @@ class HomeFragment : Fragment() {
         //线程读取JSON
         readJSONData()
 
+
+        //折线图
+        var hourlyurl="https://devapi.qweather.com/v7/weather/24h?location=$locate&key=$key"
+        readHourlyJSONData(hourlyurl)
+
+        var hourlyTempBtn=binding.hourlyBtn
+        hourlyTempBtn.setOnClickListener {
+            chart = binding.chart
+            generateData();
+            resetViewport();
+        }
+
         return root
+    }
+
+    // 折线图
+    //读取逐小时天气
+    private fun readHourlyJSONData(url: String) {
+        thread {
+            try {
+                val client = OkHttpClient()
+                val request = Request.Builder().url(url).build()
+                val response = client.newCall(request).execute()
+                val responseData = response.body?.string()
+                Log.d("responseData", responseData.toString())
+                if (responseData != null) {
+                    dealHourlyData(responseData)
+                    Log.d("responseData", responseData)
+                    Log.d("url",url)
+//                  println(responseData)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    private fun dealHourlyData(responseData: String) {
+        val gson = Gson()
+        val cityData = gson.fromJson(responseData, JsonObject::class.java)
+        val hourlyData =
+            gson.fromJson(
+                cityData.getAsJsonArray("hourly"),
+                Array<NotificationsFragment.HourlyData>::class.java
+            ).toList()
+
+        val City = NotificationsFragment.CityRainProbability(hourlyData)
+        hourlyTime = City.getHourlyTime().toList() //时间列表
+        hourlyTemp = City.getHourlyTemp().toList()//温度列表
+        for (t in hourlyTemp!!){
+            Log.d("hourlyTemp", t.toString())
+        }
+        var maxTemp=-100
+        var minTemp=100
+        //获取温度最大值和最小值，设置折线图显示范围
+        for(i in 0 until numberOfPoints){
+            if(hourlyTemp!![i]<minTemp){
+                minTemp=hourlyTemp!![i]
+            }
+            if(hourlyTemp!![i]>maxTemp){
+                maxTemp=hourlyTemp!![i]
+            }
+        }
+        Log.d("最大值", maxTemp.toString())
+        Log.d("最小值", minTemp.toString())
+        yTop=maxTemp+10
+        yBottom=minTemp-10
+
+    }
+
+    private fun generateData() {
+        val lines: MutableList<Line> = ArrayList()
+        val axisXValues: MutableList<AxisValue> = ArrayList()
+        //横坐标
+        for (i in 0 until numberOfPoints) {
+            axisXValues.add(i, AxisValue(i.toFloat()).setLabel(hourlyTime!![i]))
+        }
+        //纵坐标
+        val values: MutableList<PointValue> = ArrayList()
+        for (j in 0 until numberOfPoints) {
+
+                values.add(PointValue(j.toFloat(), hourlyTemp!![j].toFloat()))
+
+
+        }
+
+        val line = Line(values)
+        line.setColor(ChartUtils.pickColor())    //设置颜色随机
+        line.setShape(shape)         //设置形状
+        line.setCubic(true)          //设置线为曲线，反之为折线
+        line.setFilled(true)          //设置填满
+        line.setHasLabels(true)    //显示便签
+        line.setHasLabelsOnlyForSelected(true)
+        line.setHasLines(true)
+        line.setHasPoints(true)
+        lines.add(line)
+
+
+        val data = LineChartData(lines)
+
+        data.setAxisXBottom(
+            Axis(axisXValues)
+                .setHasLines(true)
+                .setTextColor(Color.BLACK)
+                .setName("时间")
+                .setHasTiltedLabels(true)
+                .setMaxLabelChars(4)
+        )
+        data.setAxisYLeft(
+            Axis()
+                .setHasLines(true)
+                .setName("温度")
+                .setTextColor(Color.BLACK)
+                .setMaxLabelChars(2)
+        )
+        data.setBaseValue(Float.NEGATIVE_INFINITY)
+        chart.setLineChartData(data)
+    }
+
+
+
+    //折线图
+    private fun resetViewport() {
+        var v: Viewport = Viewport(chart.maximumViewport);
+        v.bottom = yBottom.toFloat()
+        v.top = yTop.toFloat()
+        v.left = 1.0F;
+        v.right = (numberOfPoints - 1).toFloat(); //显示点数
+        chart.maximumViewport = v;
+        chart.currentViewport = v;
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
