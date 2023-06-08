@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <!--  ¸ü¸ÄÁËNoActionBar£¬³¢ÊÔ½«±êÌâÀ¸È¡Ïû  -->
-    <style name="Theme.ASFinalWork2023" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <!--  æ›´æ”¹äº†NoActionBarï¼Œå°è¯•å°†æ ‡é¢˜æ å–æ¶ˆ  -->
+    <style name="Theme.ASFinalWork2023" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
 
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
@@ -13,15 +13,15 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
 
-        <!--    ÕâÀï¸ü¸Ä×´Ì¬À¸µÄÑÕÉ«   Í¸Ã÷@android:color/transparent  -->
-<!--        <item name="android:statusBarColor">@color/grey</item>-->
+        <!--    è¿™é‡Œæ›´æ”¹çŠ¶æ€æ çš„é¢œè‰²   é€æ˜Ž@android:color/transparent  -->
+        <item name="android:statusBarColor">@color/grey</item>
         <!-- Customize your theme here. -->
 
-<!--        <item name="android:navigationBarColor">#00000000</item> &lt;!&ndash; ÉèÖÃµ¼º½À¸±³¾°É«ÎªÍ¸Ã÷ &ndash;&gt;-->
+        <item name="android:navigationBarColor">#00000000</item> <!-- è®¾ç½®å¯¼èˆªæ èƒŒæ™¯è‰²ä¸ºé€æ˜Ž -->
 
     </style>
 
-    <!--  ¸øµÇÂ¼Ò³ÉèÖÃÃ»ÓÐActionBar£¬ÎªÁËºóÃæÉèÖÃToolBar  -->
+    <!--  ç»™ç™»å½•é¡µè®¾ç½®æ²¡æœ‰ActionBarï¼Œä¸ºäº†åŽé¢è®¾ç½®ToolBar  -->
     <style name="LoginTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
@@ -33,14 +33,14 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
 
-        <!--    ÕâÀï¸ü¸Ä×´Ì¬À¸µÄÑÕÉ«   Í¸Ã÷@android:color/transparent  -->
+        <!--    è¿™é‡Œæ›´æ”¹çŠ¶æ€æ çš„é¢œè‰²   é€æ˜Ž@android:color/transparent  -->
         <item name="android:statusBarColor">@android:color/transparent</item>
         <!-- Customize your theme here. -->
 
-        <item name="android:navigationBarColor">#00000000</item> <!-- ÉèÖÃµ¼º½À¸±³¾°É«ÎªÍ¸Ã÷ -->
+        <item name="android:navigationBarColor">#00000000</item> <!-- è®¾ç½®å¯¼èˆªæ èƒŒæ™¯è‰²ä¸ºé€æ˜Ž -->
     </style>
 
-    <!--  ¸øÔËÊÆÒ³ÉèÖÃÃ»ÓÐActionBar£¬ÎªÁËºóÃæÉèÖÃToolBar  -->
+    <!--  ç»™è¿åŠ¿é¡µè®¾ç½®æ²¡æœ‰ActionBarï¼Œä¸ºäº†åŽé¢è®¾ç½®ToolBar  -->
     <style name="LuckTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
@@ -52,11 +52,11 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
 
-        <!--    ÕâÀï¸ü¸Ä×´Ì¬À¸µÄÑÕÉ«   Í¸Ã÷@android:color/transparent  -->
+        <!--    è¿™é‡Œæ›´æ”¹çŠ¶æ€æ çš„é¢œè‰²   é€æ˜Ž@android:color/transparent  -->
         <item name="android:statusBarColor">@android:color/transparent</item>
         <!-- Customize your theme here. -->
 
-        <item name="android:navigationBarColor">#00000000</item> <!-- ÉèÖÃµ¼º½À¸±³¾°É«ÎªÍ¸Ã÷ -->
+        <item name="android:navigationBarColor">#00000000</item> <!-- è®¾ç½®å¯¼èˆªæ èƒŒæ™¯è‰²ä¸ºé€æ˜Ž -->
     </style>
 
     <style name="SelectTheme" parent="Theme.MaterialComponents.Light.NoActionBar">

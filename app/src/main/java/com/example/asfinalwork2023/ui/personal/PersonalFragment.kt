@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide
 import com.example.asfinalwork2023.R
 import com.example.asfinalwork2023.databinding.FragmentPersonalBinding
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.fragment_personal.*
 
 class PersonalFragment : Fragment(){
     var loginState:String = "未登录"
