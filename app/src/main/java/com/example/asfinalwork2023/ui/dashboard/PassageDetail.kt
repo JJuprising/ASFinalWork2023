@@ -37,6 +37,8 @@ class PassageDetail : AppCompatActivity() {
             val bitmap = BitmapFactory.decodeByteArray(array, 0, array.size)
             Glide.with(this).load(bitmap).into(PassageDetailImage);//设置图片
         }
+        cursor.close()
+        db.close()
         PassageDetailTitle.text = passageTitle//设置标题
         PassageDetailContent.text = passageContent//设置内容
 

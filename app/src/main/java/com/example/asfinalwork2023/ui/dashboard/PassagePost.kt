@@ -171,7 +171,7 @@ class PassagePost : AppCompatActivity() {
         values.put("picture", passage.picture)
 
         db.insert("Passage", null, values)
-
+        db.close()
     }
 }
 

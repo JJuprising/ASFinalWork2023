@@ -5,6 +5,7 @@ import android.content.Intent
 import android.database.AbstractWindowedCursor
 import android.database.CursorWindow
 import android.graphics.BitmapFactory
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,6 +43,7 @@ class PassageAdapter(val context: Context, val passageList: List<PassageInfoInt>
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val passage = passageList[position]
         holder.passageTitle.text = passage.title//设置标题
+        //Log.d("Title",passage.title)
         //用id查图片
         val db = PassageDBHelper(context, "Passage.db", 1).writableDatabase
         val cursor =
@@ -54,6 +56,11 @@ class PassageAdapter(val context: Context, val passageList: List<PassageInfoInt>
             val bitmap = BitmapFactory.decodeByteArray(array, 0, array.size)//转成bitmap
             Glide.with(context).load(bitmap).into(holder.passageImage);//设置图片
         }
+        cursor.close()
+        db.close()
+        var parm = holder.passageImage.layoutParams
+        parm.height=((200+Math.random()*500).toInt())//随机图片高度
+        holder.passageImage.layoutParams = parm
 
     }
 
