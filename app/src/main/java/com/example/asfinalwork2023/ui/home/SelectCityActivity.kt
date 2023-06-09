@@ -25,7 +25,6 @@ class SelectCityActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_city)
-        setSupportActionBar(toolBar)
         createCityList()
         cityList.removeAt(0)
         val recyclerView:RecyclerView = findViewById(R.id.cityRecyclerView)

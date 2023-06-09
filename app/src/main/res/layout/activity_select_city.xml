@@ -44,13 +44,6 @@
 
             </LinearLayout>
 
-
-<!--            <androidx.appcompat.widget.Toolbar-->
-<!--                android:id="@+id/selectCityToolBar"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="?attr/actionBarSize"-->
-<!--                app:layout_collapseMode="pin" />-->
-
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.recyclerview.widget.RecyclerView
