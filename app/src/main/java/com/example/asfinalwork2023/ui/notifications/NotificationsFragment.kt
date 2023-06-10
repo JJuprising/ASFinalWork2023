@@ -2,10 +2,11 @@ package com.example.asfinalwork2023.ui.notifications
 
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.baidu.location.BDAbstractLocationListener
@@ -15,15 +16,29 @@ import com.baidu.location.LocationClientOption
 import com.baidu.mapapi.map.*
 import com.baidu.mapapi.model.LatLng
 import com.example.asfinalwork2023.databinding.FragmentNotificationsBinding
+import com.google.gson.Gson
+import com.google.gson.JsonObject
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import kotlin.concurrent.thread
 
 
 class NotificationsFragment : Fragment() {
-
+    var h: Handler? = null
+    private var mInfoWindow: InfoWindow?=null
+    private var preAddress: String?=null
+    private var maxRainIndex: Int=0
+    private var preStatus: MapStatusUpdate?=null
+    private var preLongitude: Double?=0.0
+    private var preLatitude: Double?=0.0
+    private var maxRainValue: Double?=0.0
+    private lateinit var hourlyPop: List<Double>
     private var _binding: FragmentNotificationsBinding? = null
     private var mMapView: MapView? = null
     private var mBaiduMap: BaiduMap? = null
     private var mLocationClient: LocationClient? = null
-
+    private val citiesRain = mutableListOf<City>()//城市降雨数据
+    private val key = "9b0c92686ed14dceaa9a3ab0607ccb21"
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -39,10 +54,6 @@ class NotificationsFragment : Fragment() {
         _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textNotifications
-        notificationsViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
 
        // 获取地图组件
         mMapView=binding.bmapView
@@ -54,6 +65,8 @@ class NotificationsFragment : Fragment() {
         getRainData()
         //显示降雨热力图
         val showHeatBtn = binding.showHeatBtn
+        val messageBtn=binding.messageBtn
+        val progressBar=binding.progressBar
         showHeatBtn.setOnClickListener {
             //显示降雨热力图
             showheat()
@@ -65,15 +78,16 @@ class NotificationsFragment : Fragment() {
                 messageBtn.text = "$preAddress \n24小时内不会下雨"//信息窗显示当前地址
 
             } else {
-                var rat = maxRainValue.toInt()
+                var rat = maxRainValue?.toInt()
                 messageBtn.text = "$preAddress \n $maxRainIndex 小时后有$rat %概率会下雨"
             }
             //构造InfoWindow
             //point 描述的位置点
             //-100 InfoWindow相对于point在y轴的偏移量
-            mInfoWindow = InfoWindow(messageBtn, LatLng(preLatitude, preLongitude), -100)
+            mInfoWindow = InfoWindow(messageBtn, LatLng(preLatitude!!, preLongitude!!), -100)
 
         }
+        val progressText = binding.progressText //进度条提示文字
         // 回调动态热力图帧索引
         mBaiduMap?.setOnHeatMapDrawFrameCallBack { indexCallBack -> // 更新进度条和帧数
             progressBar.progress = indexCallBack
@@ -102,7 +116,7 @@ class NotificationsFragment : Fragment() {
 
             if (attributeList != null) {
                 for ((index, value) in attributeList.withIndex()) {
-                    if (value > maxRainValue) {
+                    if (value > maxRainValue!!) {
                         maxRainValue = value
                         maxRainIndex = index
                     }
@@ -130,32 +144,29 @@ class NotificationsFragment : Fragment() {
             }
         }
 
-        Log.d("测试", "1")
+
         builder.weightedDatas(frames)
 
         // 设置开始动画属性：开启初始动画，时长100毫秒，动画缓动函数类型为线性
         val init = HeatMapAnimation(true, 100, HeatMapAnimation.AnimationType.Linear)
-// 设置帧动画属性：开启帧动画，时长800毫秒，动画缓动函数类型为线性
-// 设置帧动画属性：开启帧动画，时长800毫秒，动画缓动函数类型为线性
-        val frame = HeatMapAnimation(true, 800, HeatMapAnimation.AnimationType.Linear)
+        // 设置帧动画属性：开启帧动画，时长10000毫秒，动画缓动函数类型为线性
+        val frame = HeatMapAnimation(true, 10000, HeatMapAnimation.AnimationType.Linear)
         builder.initAnimation(init)
         builder.frameAnimation(frame)
         // 设置热力图半径范围
         builder.radius(35)
         // 设置热力图渐变颜色
         val colors = intArrayOf(
-            Color.parseColor("#00FF00"), // 绿色
-            Color.parseColor("#FFFF00"), // 黄色
-            Color.parseColor("#FF0000")  // 红色
+            Color.rgb(255, 0, 0), Color.rgb(0, 225, 0), Color.rgb(0, 0, 200)
         )
         builder.gradient(Gradient(colors, floatArrayOf(0.2f, 0.5f, 1.0f)))
-        builder.maxIntensity(3.1f)
-        builder.opacity(0.9)
+        builder.maxIntensity(100.0f)
+        builder.opacity(0.8)
         val heatMapData = builder.build()
-
-// 添加热力图覆盖物
+        Log.d("showHeat", "添加覆盖物")
+        // 添加热力图覆盖物
         mBaiduMap?.addHeatMap(heatMapData)
-        mBaiduMap?.startHeatMapFrameAnimation();
+        mBaiduMap?.startHeatMapFrameAnimation()
 
     }
 
@@ -188,12 +199,13 @@ class NotificationsFragment : Fragment() {
 
 
             //获取每个城市降雨数据，先放入citiesRain中
+            //获取每个城市降雨数据，先放入citiesRain中
             for (city in cities) {
                 val location = city.second.toString() + "," + city.first.toString()
                 println(location)
                 val url = "https://devapi.qweather.com/v7/weather/24h?location=$location&key=$key"
                 println(url)
-                readJSONData(url, city)
+                readJSONData(url, city as Pair<Double, Double>)
             }
         }
     }
@@ -203,34 +215,36 @@ class NotificationsFragment : Fragment() {
         //定位初始化
         mLocationClient = LocationClient(requireActivity())
 
-//通过LocationClientOption设置LocationClient相关参数
-
-//通过LocationClientOption设置LocationClient相关参数
+        //通过LocationClientOption设置LocationClient相关参数
         val option = LocationClientOption()
         option.isOpenGps = true // 打开gps
 
         option.setCoorType("bd09ll") // 设置坐标类型
 
         option.setScanSpan(1000)
-        option.setAddrType("all");
-        option.setIsNeedAddress(true); // 可选，设置是否需要地址信息，默认不需要
-        option.setIsNeedLocationDescribe(true); // 可选，设置是否需要地址描述
+        option.setAddrType("all")
+        option.setIsNeedAddress(true) // 可选，设置是否需要地址信息，默认不需要
+        option.setIsNeedLocationDescribe(true) // 可选，设置是否需要地址描述
 
 
-//设置locationClientOption
-
-//设置locationClientOption
+        //设置locationClientOption
         mLocationClient!!.locOption = option
-
-//注册LocationListener监听器
-
-//注册LocationListener监听器
+        //注册LocationListener监听器
         val myLocationListener = MyLocationListener()
         mLocationClient!!.registerLocationListener(myLocationListener)
-//开启地图定位图层
-//开启地图定位图层
+
+        //设置缩放
+        //缩放级别
+        val builder = MapStatus.Builder()
+        builder.zoom(8.0f)
+        mBaiduMap?.setMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()))
+
+        //开启地图定位图层
         mLocationClient!!.start()
+        //设置当前视图位置
+        mBaiduMap?.animateMapStatus(preStatus) //动画的方式到中间
     }
+
     //构造地图数据
 //    inner class MyLocationListener : BDAbstractLocationListener() {
 //        override fun onReceiveLocation(location: BDLocation) {
@@ -256,12 +270,19 @@ class NotificationsFragment : Fragment() {
                 .direction(location.direction).latitude(location.latitude)
                 .longitude(location.longitude).build()
             mBaiduMap?.setMyLocationData(locData)
-            //获取经纬度
+            //获取经纬度 并保留两位小数''
+            preLatitude = String.format("%.2f", location.latitude).toDouble()
+            preLongitude = String.format("%.2f", location.longitude).toDouble()
             val ll = LatLng(location.latitude, location.longitude)
-            val status = MapStatusUpdateFactory.newLatLng(ll)
-
+            //设置位置状态
+            preStatus = MapStatusUpdateFactory.newLatLng(ll)
+            //设置位置状态
+            preAddress=location.addrStr
             //mBaiduMap.setMapStatus(status);//直接到中间
-            mBaiduMap?.animateMapStatus(status) //动画的方式到中间
+            //实时更新信息窗位置
+            if (mInfoWindow != null) {
+                mBaiduMap?.showInfoWindow(mInfoWindow)
+            }
 //            Log.d("经度", location.latitude.toString())
 //            Log.d("纬度", location.longitude.toString())
 //            Log.d("位置",location.addrStr)
@@ -269,6 +290,7 @@ class NotificationsFragment : Fragment() {
     }
 
 
+    //请求数据
     private fun readJSONData(url: String, city: Pair<Double, Double>) {
         thread {
             try {
@@ -279,13 +301,12 @@ class NotificationsFragment : Fragment() {
                 if (responseData != null) {
                     dealRainData(responseData, city)
                     Log.d("responseData", responseData)
-//                  println(responseData)
+                    //                  println(responseData)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
-
     }
 
     //提取降雨数据
@@ -365,8 +386,4 @@ class NotificationsFragment : Fragment() {
 //        mMapView?.onDestroy();
     }
 
-}
-
-private fun Fragment.onCreate() {
-    TODO("Not yet implemented")
 }

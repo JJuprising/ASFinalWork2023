@@ -17,6 +17,9 @@ import com.bumptech.glide.Glide
 import com.example.asfinalwork2023.R
 import com.example.asfinalwork2023.databinding.FragmentHomeBinding
 import com.google.gson.Gson
+import lecho.lib.hellocharts.model.*
+import lecho.lib.hellocharts.util.ChartUtils
+import lecho.lib.hellocharts.view.LineChartView
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.BufferedReader
@@ -25,6 +28,7 @@ import java.io.InputStreamReader
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.concurrent.thread
+import kotlin.math.max
 
 class HomeFragment : Fragment() {
 
@@ -71,9 +75,20 @@ class HomeFragment : Fragment() {
     private lateinit var comftRelative: RelativeLayout
     private lateinit var trafficRelative: RelativeLayout
     private lateinit var spiRelative: RelativeLayout
+
     //>>>>
     private lateinit var hourlyAdapter: HourlyAdapter
     private lateinit var dailyAdapter: DailyAdapter
+
+    //折线图
+    private lateinit var chart: LineChartView
+    private var maxNumberOfLines = 4
+    private var numberOfPoints = 24 //横坐标数
+    private var number = 60 //y轴最大值
+    private val randomNumbersTab = Array(maxNumberOfLines) { FloatArray(numberOfPoints) }
+
+    private var shape: ValueShape = ValueShape.CIRCLE
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -126,8 +141,71 @@ class HomeFragment : Fragment() {
         readJSONData(urlWeather24)
         readJSONData(urlWeather7)
         readJSONData(urlLive)
+
+        //折线图
+        chart = binding.chart;
+
+
         return root
     }
+
+    private fun resetViewport() {
+        val v = Viewport(chart.maximumViewport)
+        v.bottom = hourlyWeather.minByOrNull { it.temp }?.temp!!.toFloat()-10
+        v.top = hourlyWeather.maxByOrNull { it.temp }?.temp!!.toFloat()+10
+        v.left = 0F
+        v.right = (numberOfPoints - 1).toFloat()
+        chart.maximumViewport = v
+        chart.currentViewport = v
+
+    }
+
+    private fun generateData() {
+        val lines = mutableListOf<Line>()
+        val axisXValues = mutableListOf<AxisValue>()
+        for (i in 0 until numberOfPoints) {
+            axisXValues.add(i, AxisValue(i.toFloat()).setLabel(hourlyWeather[i].fxTime))
+        }
+        val numberOfLines = 1
+
+            val values = mutableListOf<PointValue>()
+            for (j in 0 until numberOfPoints) {
+                values.add(PointValue(j.toFloat(), hourlyWeather[j].temp.toFloat() ))
+            }
+
+            val line = Line(values)
+            line.color = ChartUtils.pickColor() // 设置颜色随机
+            line.shape = shape // 设置形状
+            line.isCubic = true // 设置线为曲线，反之为折线
+            line.isFilled = true // 设置填满
+//            line.hasLabels = true // 显示便签
+//            line.hasLabelsOnlyForSelected = true
+//            line.hasLines = true
+//            line.hasPoints = true
+            lines.add(line)
+
+
+        val data = LineChartData(lines)
+
+        data.axisXBottom = Axis(axisXValues).apply {
+            //hasLines = true
+            textColor = Color.BLACK
+            name = "时间"
+            //hasTiltedLabels = true
+            maxLabelChars = 4
+        }
+        data.axisYLeft = Axis().apply {
+            //hasLines = true
+            name = "温度"
+            textColor = Color.BLACK
+            maxLabelChars = 2
+        }
+        data.baseValue = Float.NEGATIVE_INFINITY
+        chart.lineChartData = data
+
+
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -279,6 +357,11 @@ class HomeFragment : Fragment() {
             layoutManager.orientation = LinearLayoutManager.HORIZONTAL
             hourlyRecyclerView.layoutManager = layoutManager
             hourlyRecyclerView.adapter = hourlyAdapter
+
+            //生成折线图
+            generateData();
+
+            resetViewport();
         }
     }
     //处理7天天气
