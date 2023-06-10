@@ -10,54 +10,64 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="文案"
+        android:text="封面"
         android:textAlignment="center"
-        android:textSize="40dp"
-        android:id="@+id/PassagePostTextView"
+        android:textSize="24dp"
+        android:textStyle = "bold"
+        android:fontFamily="sans-serif"
+        android:shadowColor="@color/black"
+        android:shadowDx="3"
+        android:shadowDy="3"
+        android:shadowRadius="5"
         />
+    <ImageView
+        android:id="@+id/PassagePostImage"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_gravity="center"
+        android:background="#EBEBEB" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:hint="快和别人分享自己吧~"
-        android:id="@+id/PassagePostEditView"
-        android:gravity="top|left">
-
-    </EditText>
-    <LinearLayout
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:text="从相册中选择"
+        android:id="@+id/PassagePostAlbumButton"/>
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp">
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/PassagePostImage1">
-        </ImageView>
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/PassagePostImage2">
-        </ImageView>
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/PassagePostImage3">
-        </ImageView>
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/PassagePostImage4">
-        </ImageView>
-
-    </LinearLayout>
+        android:text="正文"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:shadowColor="@color/black"
+        android:shadowDx="3"
+        android:shadowDy="3"
+        android:shadowRadius="5"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:hint="标题~"
+        android:id="@+id/PassagePostTitle"
+        android:gravity="top|center_vertical"
+        android:background="#D2D2D2"
+        android:layout_marginHorizontal="5dp"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:hint="快和别人分享自己吧~"
+        android:id="@+id/PassagePostContent"
+        android:gravity="top|left"
+        android:background="#F4F4F4"
+        android:layout_marginHorizontal="5dp"
+        android:layout_marginVertical="5dp"/>
     <Button
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
         android:text="发送"
-        android:id="@+id/NewPostButton"/>
+        android:id="@+id/PassagePostSubmitButton"
+        />
 
 </LinearLayout>

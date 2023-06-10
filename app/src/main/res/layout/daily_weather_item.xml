@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="380dp"
+    android:layout_height="50dp"
+    android:layout_marginBottom="5dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="15dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:background="#3F51B5">
+
+        <TextView
+            android:id="@+id/dailyDate"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="18sp"
+            android:gravity="center_vertical"
+            android:textColor="@color/white"
+            android:text="06-06"/>
+
+        <RelativeLayout
+            android:id="@+id/dayRelativeLayout"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="30dp"
+            android:layout_toRightOf="@+id/dailyDate">
+
+            <ImageView
+                android:id="@+id/dailyIconDay"
+                android:layout_marginLeft="5dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+
+<!--            <TextView-->
+<!--                android:id="@+id/dailyTextDay"-->
+<!--                android:layout_below="@+id/dailyIconDay"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textSize="16sp"-->
+<!--                android:textAlignment="center"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:text="晴"/>-->
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/nightRelativeLayout"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="30dp"
+            android:layout_toRightOf="@+id/dayRelativeLayout">
+
+            <ImageView
+                android:id="@+id/dailyIconNight"
+                android:layout_marginLeft="5dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_100"/>
+
+<!--            <TextView-->
+<!--                android:id="@+id/dailyTextNight"-->
+<!--                android:layout_below="@+id/dailyIconNight"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textSize="16sp"-->
+<!--                android:textAlignment="center"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:text="晴"/>-->
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/dailyTempMin"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="18sp"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="30dp"
+            android:layout_toRightOf="@+id/nightRelativeLayout"
+            android:textColor="@color/white"
+            android:text="23℃"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/dailyTempMin"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:text="~"/>
+
+        <TextView
+            android:id="@+id/dailyTempMax"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="18sp"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="30dp"
+            android:layout_toRightOf="@+id/dailyTempMin"
+            android:textColor="@color/white"
+            android:text="28℃"/>
+    </RelativeLayout>
+
+</com.google.android.material.card.MaterialCardView>

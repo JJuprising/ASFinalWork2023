@@ -36,7 +36,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ASFinalWork2023"
         tools:targetApi="31">
+        <!-- 添加了Login登录页的Activity，name一定要是.Ui.personal.Login的形式 -->
         <activity
+            android:name=".ui.personal.LuckActivity"
+            android:exported="false"
+            android:label=""
+            android:theme="@style/LuckTheme">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity 
             android:name=".ui.dashboard.PassagePost"
             android:label="分享你的所见"
             android:exported="false">
@@ -52,23 +62,21 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-         <!-- 添加了Login登录页的Activity，name一定要是.Ui.personal.Login的形式 -->
         <!--    百度地图配置key-->
         <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote">
         </service>
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="xQx4sfS5dFI7GQzeBknVxdEhPqm0G36K" />
-        <!--    添加了Login登录页的Activity，name一定要是.Ui.personal.Login的形式    -->
         <activity
             android:name=".ui.home.SelectCityActivity"
             android:label="选择城市"
-            android:exported="false">
+            android:exported="false"
+            android:theme="@style/SelectTheme">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <!-- 添加了Login登录页的Activity，name一定要是.Ui.personal.Login的形式 -->
         <activity
             android:name=".ui.personal.Login"
             android:exported="false"
@@ -92,5 +100,20 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.asfinalwork2023.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+        <provider
+            android:name=".ui.dashboard.PassageDBProvider"
+            android:authorities="com.example.asfinalwork2023.provider"
+            android:enabled="true"
+            android:exported="true">
+        </provider>
     </application>
 </manifest>

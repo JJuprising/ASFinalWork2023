@@ -8,6 +8,7 @@
     app:strokeColor="#f4f4f4"
     app:cardCornerRadius="0dp">
 
+
     <TextView
         android:id="@+id/locateId"
         android:layout_width="wrap_content"

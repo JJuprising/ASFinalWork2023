@@ -13,19 +13,32 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="30dp"
-        android:id="@+id/PassageDetailTitle"/>
+        android:textSize="40dp"
+        android:id="@+id/PassageDetailTitle"
+        android:gravity="center_horizontal"
+        android:shadowColor="@color/black"
+        android:shadowDx="3"
+        android:shadowDy="3"
+        android:shadowRadius="5"
+
+        android:text="Title"/>
     <ImageView
-        android:layout_width="400dp"
+        android:layout_width="300dp"
         android:layout_height="200dp"
         android:layout_gravity="center"
-        android:id="@+id/PassageDetailImage">
+        android:id="@+id/PassageDetailImage"
+        android:background="#E1E1E1"
+        android:layout_margin="10dp">
 
     </ImageView>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/PassageDetailContent"
+        android:text="Content"
+        android:textSize="20dp"
+
+        android:textColor="@color/black"
         />
     </LinearLayout>
 </ScrollView>
