@@ -41,9 +41,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textSize="25dp"
+            android:textSize="30dp"
             android:textColor="@color/pink"
-            android:text="农历二零二三年四月二十日"/>
+            android:text=""/>
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
@@ -65,24 +65,49 @@
                     android:text="今日运势"
                     android:textColor="@color/teal_700"
                     android:textSize="30sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="宜："
+                        android:layout_marginLeft="15dp"
+                        android:textColor="@color/black"
+                        android:textSize="25sp" />
+
+                    <TextView
+                        android:id="@+id/Good"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="天天开心，好运连连！"
+                        android:textColor="@color/black"
+                        android:textSize="25sp" />
+                </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/Good"
-                    android:layout_width="320dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:hint="忌："
+                    android:layout_marginLeft="15dp"
                     android:textColor="@color/black"
-                    android:hint="宜："
                     android:textSize="25sp" />
 
                 <TextView
                     android:id="@+id/Bad"
-                    android:layout_width="320dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="厄运驱散！"
                     android:textColor="@color/black"
-                    android:hint="忌："
                     android:textSize="25sp" />
+            </LinearLayout>
 
                 <Button
                     android:id="@+id/loginBtn"
