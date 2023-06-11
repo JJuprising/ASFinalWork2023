@@ -10,24 +10,24 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
-import android.widget.Toast
 import com.example.asfinalwork2023.R
-import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_login.accountEdit
-import kotlinx.android.synthetic.main.activity_login.loginBtn
-import kotlinx.android.synthetic.main.activity_login.passwordEdit
 import kotlinx.android.synthetic.main.activity_luck.*
+import java.util.*
 import kotlin.math.sqrt
 
 class LuckActivity : AppCompatActivity(),SensorEventListener {
 
     private lateinit var sensorManager: SensorManager
     private lateinit var accelerometer: Sensor
-    private val shakeThreshold = 1000 // 定义摇晃的阈值
+    private val shakeThreshold = 50 // 定义摇晃的阈值
     private var lastShakeTime: Long = 0 // 上一次摇晃的时间
 
     private lateinit var goodView: TextView
     private lateinit var badView: TextView
+    val date = Calendar.getInstance()  // 获取当前日期
+    val year = date.get(Calendar.YEAR)  // 年
+    val month = date.get(Calendar.MONTH) + 1  // 月,因为Calendar月份从0开始所以+1
+    val day = date.get(Calendar.DATE)   // 日
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +38,7 @@ class LuckActivity : AppCompatActivity(),SensorEventListener {
 
         goodView = findViewById(R.id.Good)
         badView = findViewById(R.id.Bad)
+        dateText.text = "农历${year}年${month}月${day}日"
 
         // 获取设备的加速度传感器
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
@@ -73,8 +74,8 @@ class LuckActivity : AppCompatActivity(),SensorEventListener {
                     lastShakeTime = currentTime
 
                     // TODO: 获取今天的运势信息，并更新 UI
-                    val goodLuck = "宜：乔迁 入学 耕种 搬公司"
-                    val badLuck = "忌：结婚 开业 提车 签合同"
+                    val goodLuck = "乔迁 入学 耕种 搬公司"
+                    val badLuck = "结婚 开业 提车 签合同"
                     goodView.text = goodLuck
                     badView.text = badLuck
                 }

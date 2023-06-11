@@ -44,7 +44,7 @@ class HomeFragment : Fragment() {
     private lateinit var hourlyRecyclerView: RecyclerView
     private lateinit var dailyRecyclerView: RecyclerView
 
-    private val key = "9b0c92686ed14dceaa9a3ab0607ccb21"
+    private val key = "ea11663a22f34113a5a05b5c810b182f"
 
     private lateinit var weatherBackground: ImageView   //天气背景图
     private lateinit var temperature: TextView          //实时温度
