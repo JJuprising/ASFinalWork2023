@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.asfinalwork2023.R
 import com.example.asfinalwork2023.databinding.FragmentPersonalBinding
+import com.example.asfinalwork2023.ui.home.HomeFragment
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.fragment_personal.*
 
@@ -123,21 +124,21 @@ class PersonalFragment : Fragment(){
 
             if(box1Check){
                 val notification = NotificationCompat.Builder(requireContext(),"notification")
-                    .setContentTitle("高温预警").setContentText("温度高达多少度")
+                    .setContentTitle("高温预警").setContentText("未来七天内温度较高，注意降温")
                     .setSmallIcon(R.drawable.ic_launcher_foreground)
                     .build()
                 manager.notify(1,notification)
             }
             if(box2Check){
                 val notification = NotificationCompat.Builder(requireContext(),"notification")
-                    .setContentTitle("暴雨预警").setContentText("接下来有连续暴雨")
+                    .setContentTitle("暴雨预警").setContentText("未来——天有连续暴雨")
                     .setSmallIcon(R.drawable.ic_launcher_foreground)
                     .build()
                 manager.notify(2,notification)
             }
             if(box3Check){
                 val notification = NotificationCompat.Builder(requireContext(),"notification")
-                    .setContentTitle("低温预警").setContentText("接下来一段时间温度较低")
+                    .setContentTitle("低温预警").setContentText("未来七天内存在低温，注意保暖!")
                     .setSmallIcon(R.drawable.ic_launcher_foreground)
                     .build()
                 manager.notify(3,notification)

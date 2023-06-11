@@ -44,7 +44,7 @@ class HomeFragment : Fragment() {
     private lateinit var locate: String
     private val cityMap = mutableMapOf<String, City>()          //城市列表
     private val hourlyWeather = mutableListOf<HourlyData>()     //未来24小时天气数据
-    private val dailyWeather = mutableListOf<DailyData>()       //未来7天天气数据
+    val dailyWeather = mutableListOf<DailyData>()       //未来7天天气数据
     private lateinit var hourlyRecyclerView: RecyclerView
     private lateinit var dailyRecyclerView: RecyclerView
 
