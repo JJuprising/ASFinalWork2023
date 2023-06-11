@@ -29,5 +29,5 @@
         android:layout_gravity="bottom|end"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="60dp"
-        android:src="@drawable/ic_done" />
+        android:src="@drawable/ic_camera" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

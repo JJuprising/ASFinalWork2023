@@ -31,7 +31,7 @@ import kotlin.concurrent.thread
 class NotificationsFragment : Fragment() {
     var h: Handler? = null
     private var mInfoWindow: InfoWindow?=null
-    private var preAddress: String?=null
+    public var preAddress: String?=null //地址
     private var maxRainIndex: Int=0
     private var preStatus: MapStatusUpdate?=null
     private var preLongitude: Double?=0.0

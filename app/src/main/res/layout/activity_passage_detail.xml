@@ -27,17 +27,21 @@
         android:layout_height="200dp"
         android:layout_gravity="center"
         android:id="@+id/PassageDetailImage"
-        android:background="#E1E1E1"
         android:layout_margin="10dp">
 
     </ImageView>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="拍摄于：广东-佛山  当地气温：25℃"
+        android:textAlignment="center" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/PassageDetailContent"
         android:text="Content"
         android:textSize="20dp"
-
+        android:layout_margin="10dp"
         android:textColor="@color/black"
         />
     </LinearLayout>

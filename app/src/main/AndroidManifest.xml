@@ -57,7 +57,8 @@
         <activity
             android:name=".ui.dashboard.PassageDetail"
             android:label="文章详情"
-            android:exported="false">
+            android:exported="false"
+            android:theme="@style/LuckTheme">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

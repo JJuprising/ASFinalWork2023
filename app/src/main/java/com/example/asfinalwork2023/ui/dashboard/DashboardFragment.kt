@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.asfinalwork2023.R
 import com.example.asfinalwork2023.databinding.FragmentDashboardBinding
+import com.example.asfinalwork2023.ui.notifications.NotificationsFragment
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import java.io.ByteArrayOutputStream
 import kotlin.concurrent.thread
@@ -70,37 +71,16 @@ class DashboardFragment : Fragment() {
             context!!.startActivity(intent)
             //CreatDB()//新建数据库
         }
+
         return root
     }
 
     fun CreatDB() {
-//        var passages = mutableListOf(//默认数据
-//            PassageInfoInt("Title1", "Content1", R.drawable.apple),
-//            PassageInfoInt("Title2","Content2", R.drawable.banana),
-//            PassageInfoInt("Title3","Content3", R.drawable.cherry),
-//            PassageInfoInt("Title4","Content4", R.drawable.grape),
-//            PassageInfoInt("Title5","Content5", R.drawable.mango),
-//            PassageInfoInt("Title6","Content6", R.drawable.watermelon),
-//            PassageInfoInt("Title7","Content7", R.drawable.strawberry),
-//            PassageInfoInt("Title8","Content8", R.drawable.pineapple),
-//            PassageInfoInt("Title9","Content9", R.drawable.pear),
-//            PassageInfoInt("Title10","Content10", R.drawable.orange)
-//        )
+
         val dbHelper = PassageDBHelper(requireContext(), "Passage.db", 1)
         val db = dbHelper.writableDatabase
-//        for (passage in passages) {
-//            val drawable = resources.getDrawable(passage.picture)//从res文件夹获取图片
-//            val bitmap = (drawable as BitmapDrawable).bitmap//转成bitmap
-//            val stream = ByteArrayOutputStream()
-//            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)//图像压缩成流
-//            val byteArray = stream.toByteArray()//转成字节数组
-//            val values = ContentValues()//塞进数据类
-//            values.put("title", passage.title);
-//            values.put("content", passage.content);
-//            values.put("picture", byteArray);
-//            db.insert("Passage", null, values)//插入
-//        }
         db.close()
+
     }
 
     fun ReadData() {//读取数据库，测试用
