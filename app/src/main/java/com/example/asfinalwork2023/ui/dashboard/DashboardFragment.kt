@@ -142,7 +142,7 @@ class DashboardFragment : Fragment() {
         val dbHelper = PassageDBHelper(requireContext(), "Passage.db", 1)
         val db = dbHelper.writableDatabase//获取数据库
         val cursor = db.query("Passage", null, null, null, null, null, "id desc")//查询游标
-        val cw = CursorWindow("name", 5000000)//设置窗口大小，因为有二进制对象所以窗口必须很大
+        val cw = CursorWindow("name", 500000000)//设置窗口大小，因为有二进制对象所以窗口必须很大
         val ac = cursor as AbstractWindowedCursor
         ac.window = cw
         if (cursor.moveToFirst()) {

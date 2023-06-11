@@ -31,6 +31,11 @@ class PersonalFragment : Fragment(){
     var box2Check: Boolean = false
     var box3Check: Boolean = false
 
+
+    var highTemperature:Double? = 40.0
+    var bigRain:Boolean = false
+    var lowTemperature:Double? = -6.0
+
     private val loginStatusReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             val isLogin = intent?.getBooleanExtra("isLogin", false) ?: false

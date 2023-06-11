@@ -29,13 +29,15 @@ class PassageDetail : AppCompatActivity() {
         val db = PassageDBHelper(this, "Passage.db", 1).writableDatabase
         val cursor =
             db.query("Passage", null, "id=?", arrayOf(passageImageID.toString()), null, null, null)
-        val cw = CursorWindow("name", 5000000)
+        val cw = CursorWindow("name", 500000000)
         val ac = cursor as AbstractWindowedCursor
         ac.window = cw
         if (cursor.moveToFirst()) {
             val array = cursor.getBlob(cursor.getColumnIndex("picture"))
-            val bitmap = BitmapFactory.decodeByteArray(array, 0, array.size)
-            Glide.with(this).load(bitmap).into(PassageDetailImage);//设置图片
+            if(array!=null){
+                val bitmap = BitmapFactory.decodeByteArray(array, 0, array.size)
+                Glide.with(this).load(bitmap).into(PassageDetailImage);//设置图片
+            }
         }
         cursor.close()
         db.close()

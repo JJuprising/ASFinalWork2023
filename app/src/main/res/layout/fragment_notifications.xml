@@ -12,7 +12,7 @@
         <com.baidu.mapapi.map.MapView
             android:id="@+id/bmapView"
             android:layout_width="match_parent"
-            android:layout_height="450dp"
+            android:layout_height="700dp"
             android:clickable="true" />
 
         <TextView

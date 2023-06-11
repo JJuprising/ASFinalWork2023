@@ -16,7 +16,7 @@
     <item
         android:id="@+id/navigation_notifications"
         android:icon="@drawable/ditudingwei"
-        android:title="降雨可视化" />
+        android:title="@string/title_notifications" />
 
     <!--  Personal导航栏组件  -->
     <item

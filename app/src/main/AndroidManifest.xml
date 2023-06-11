@@ -67,7 +67,7 @@
         </service>
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="xQx4sfS5dFI7GQzeBknVxdEhPqm0G36K" />
+            android:value="nghgjrLHIHptp4np26bcFUeORsrnr4Cd" />
         <activity
             android:name=".ui.home.SelectCityActivity"
             android:label="选择城市"

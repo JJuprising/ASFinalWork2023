@@ -137,7 +137,7 @@ class PassagePost : AppCompatActivity() {
         var fos: FileOutputStream? = null
         try {
             fos = FileOutputStream(file)
-            bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos)
+            bmp.compress(Bitmap.CompressFormat.JPEG, 10, fos)
             Log.d(tags, "saved!")
         } catch (e: Exception) {
             Log.d(tags, "error!" + e.message)
@@ -150,7 +150,7 @@ class PassagePost : AppCompatActivity() {
     private fun submitPost(title: String, content: String, Image: Bitmap) {//提交文章动作
         // Convert Bitmap to byte array
         val stream = ByteArrayOutputStream()
-        Image.compress(Bitmap.CompressFormat.PNG, 100, stream)//压缩图片
+        Image.compress(Bitmap.CompressFormat.PNG, 10, stream)//压缩图片
         val byteArray = stream.toByteArray()//转成字节数组
         if (byteArray.size < 100) {
             Toast.makeText(this, "请上传更大的封面~", 3).show()

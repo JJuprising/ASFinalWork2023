@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">磨蹭天气</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_home">主页</string>
+    <string name="title_dashboard">发现</string>
+    <string name="title_notifications">降雨可视化</string>
     //这里更改Personal页面的label
-    <string name="title_personal">Personal</string>
+    <string name="title_personal">用户</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 

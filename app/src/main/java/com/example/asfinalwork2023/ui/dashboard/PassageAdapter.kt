@@ -48,13 +48,15 @@ class PassageAdapter(val context: Context, val passageList: List<PassageInfoInt>
         val db = PassageDBHelper(context, "Passage.db", 1).writableDatabase
         val cursor =
             db.query("Passage", null, "id=?", arrayOf(passage.picture.toString()), null, null, null)
-        val cw = CursorWindow("name", 5000000)
+        val cw = CursorWindow("name", 500000000)
         val ac = cursor as AbstractWindowedCursor
         ac.window = cw
         if (cursor.moveToFirst()) {//查到了
             val array = cursor.getBlob(cursor.getColumnIndex("picture"))//找图片列，得到字节数组
-            val bitmap = BitmapFactory.decodeByteArray(array, 0, array.size)//转成bitmap
-            Glide.with(context).load(bitmap).into(holder.passageImage);//设置图片
+            if(array!=null){
+                val bitmap = BitmapFactory.decodeByteArray(array, 0, array.size)//转成bitmap
+                Glide.with(context).load(bitmap).into(holder.passageImage);//设置图片
+            }
         }
         cursor.close()
         db.close()

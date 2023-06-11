@@ -6,6 +6,7 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
@@ -21,6 +22,7 @@ class LuckActivity : AppCompatActivity(),SensorEventListener {
     private lateinit var accelerometer: Sensor
     private val shakeThreshold = 50 // 定义摇晃的阈值
     private var lastShakeTime: Long = 0 // 上一次摇晃的时间
+    private var mediaPlayer: MediaPlayer? = null // 音效
 
     private lateinit var goodView: TextView
     private lateinit var badView: TextView
@@ -43,6 +45,9 @@ class LuckActivity : AppCompatActivity(),SensorEventListener {
         // 获取设备的加速度传感器
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+
+        mediaPlayer = MediaPlayer.create(this, R.raw.shake_sound)
+        mediaPlayer?.setOnCompletionListener { mediaPlayer?.reset() }
     }
 
     override fun onResume() {
@@ -72,6 +77,8 @@ class LuckActivity : AppCompatActivity(),SensorEventListener {
                 if (acceleration > shakeThreshold) { // 如果加速度向量的模长大于阈值，则认为发生了摇晃
                     // 更新上一次摇晃的时间
                     lastShakeTime = currentTime
+                    // 播放摇一摇音效
+                    mediaPlayer?.start()
 
                     // TODO: 获取今天的运势信息，并更新 UI
                     val goodLuck = "乔迁 入学 耕种 搬公司"
@@ -81,6 +88,12 @@ class LuckActivity : AppCompatActivity(),SensorEventListener {
                 }
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mediaPlayer?.release()
+        mediaPlayer = null
     }
 
     //Home按钮，用于返回到登陆页面
