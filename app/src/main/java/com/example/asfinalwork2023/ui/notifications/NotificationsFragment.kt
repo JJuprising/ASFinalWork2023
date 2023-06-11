@@ -1,5 +1,7 @@
 package com.example.asfinalwork2023.ui.notifications
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
@@ -7,6 +9,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.baidu.location.BDAbstractLocationListener
@@ -55,9 +59,24 @@ class NotificationsFragment : Fragment() {
 
         _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        //申请权限
+        val permissionList: MutableList<String> = ArrayList()
+        if (ContextCompat.checkSelfPermission(this.requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            permissionList.add(Manifest.permission.ACCESS_FINE_LOCATION)
+        }
+        if (ContextCompat.checkSelfPermission(this.requireActivity(), Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            permissionList.add(Manifest.permission.READ_PHONE_STATE)
+        }
+        if (ContextCompat.checkSelfPermission(this.requireActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            permissionList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        }
+        if (permissionList.isNotEmpty()) {
+            val permissions = permissionList.toTypedArray()
+            ActivityCompat.requestPermissions(this.requireActivity(), permissions, 1)
+        }
 
 
-       // 获取地图组件
+        // 获取地图组件
         mMapView=binding.bmapView
         mBaiduMap = mMapView!!.map
         mBaiduMap?.isMyLocationEnabled = true
