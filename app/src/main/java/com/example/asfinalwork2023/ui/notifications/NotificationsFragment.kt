@@ -16,6 +16,7 @@ import com.baidu.location.LocationClientOption
 import com.baidu.mapapi.map.*
 import com.baidu.mapapi.model.LatLng
 import com.example.asfinalwork2023.databinding.FragmentNotificationsBinding
+import com.example.asfinalwork2023.ui.home.HomeFragment
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import okhttp3.OkHttpClient
@@ -38,7 +39,8 @@ class NotificationsFragment : Fragment() {
     private var mBaiduMap: BaiduMap? = null
     private var mLocationClient: LocationClient? = null
     private val citiesRain = mutableListOf<City>()//城市降雨数据
-    private val key = "9b0c92686ed14dceaa9a3ab0607ccb21"
+    //    public val key = "9b0c92686ed14dceaa9a3ab0607ccb21"
+    private val key="ea11663a22f34113a5a05b5c810b182f"//蛋源
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
