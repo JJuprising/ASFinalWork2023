@@ -70,6 +70,7 @@ class PassageDBProvider : ContentProvider() {
             }
             else -> null
         }
+        db.close()
         uriReturn
     }
 
@@ -85,7 +86,9 @@ class PassageDBProvider : ContentProvider() {
                 }
                 else -> 0
             }
+            db.close()
             deletedRows
+
         } ?: 0
 
     override fun update(
@@ -105,6 +108,7 @@ class PassageDBProvider : ContentProvider() {
                 }
                 else -> 0
             }
+            db.close()
             updatedRows
         } ?: 0
 }

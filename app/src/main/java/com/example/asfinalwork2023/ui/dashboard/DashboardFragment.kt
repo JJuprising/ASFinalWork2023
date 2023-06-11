@@ -15,6 +15,7 @@ import androidx.core.database.getBlobOrNull
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.asfinalwork2023.R
 import com.example.asfinalwork2023.databinding.FragmentDashboardBinding
@@ -33,6 +34,8 @@ class DashboardFragment : Fragment() {
 
     private val passageList = ArrayList<PassageInfoInt>()//装填进Adapter的列表
 
+    private var sgllayout: StaggeredGridLayoutManager? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -44,7 +47,12 @@ class DashboardFragment : Fragment() {
 
         initPassage()//初始化文章流
 
-        val layoutManager = GridLayoutManager(context, 2)//设置网格布局
+        val layoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
+        layoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE)
+        sgllayout = layoutManager
+
+//        val layoutManager = GridLayoutManager(context,2)
+
         val recyclerView: RecyclerView = binding.recyclerView
         recyclerView.layoutManager = layoutManager
 
@@ -92,6 +100,7 @@ class DashboardFragment : Fragment() {
 //            values.put("picture", byteArray);
 //            db.insert("Passage", null, values)//插入
 //        }
+        db.close()
     }
 
     fun ReadData() {//读取数据库，测试用
@@ -112,6 +121,7 @@ class DashboardFragment : Fragment() {
             } while (cursor.moveToNext())
         }
         cursor.close()
+        db.close()
     }
 
     override fun onDestroyView() {
@@ -121,10 +131,10 @@ class DashboardFragment : Fragment() {
 
     override fun onResume() {//回复到当前页时刷新一次
         super.onResume()
-        Log.d("Resume", "Resume")
-        val adapter = PassageAdapter(context!!, passageList)//填充adapter
-        recyclerView.adapter = adapter
-        refreshPassage(adapter)
+//        initPassage()
+//        val adapter = PassageAdapter(context!!, passageList)//填充adapter
+//        recyclerView.adapter = adapter
+//        refreshPassage(adapter)
     }
 
     private fun initPassage() {//初始化文章数据
@@ -147,16 +157,19 @@ class DashboardFragment : Fragment() {
             } while (cursor.moveToNext())
         }
         cursor.close()
+        db.close()
     }
 
     private fun refreshPassage(adapter: PassageAdapter) {//刷新动作
-        thread {
-            Thread.sleep(2000)
-            requireActivity().runOnUiThread {
-                initPassage()
-                adapter.notifyDataSetChanged()
-                swipeRefresh.isRefreshing = false
-            }
-        }
+//        thread {
+//            Thread.sleep(2000)
+//            requireActivity().runOnUiThread {
+//
+//            }
+//        }
+        initPassage()
+        adapter.notifyDataSetChanged()
+        sgllayout?.invalidateSpanAssignments()
+        swipeRefresh.isRefreshing = false
     }
 }
