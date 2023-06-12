@@ -50,7 +50,8 @@ class HomeFragment : Fragment() {
 
 //    public val key = "9b0c92686ed14dceaa9a3ab0607ccb21" //舍源
 //    private val key="ea11663a22f34113a5a05b5c810b182f" //蛋源
-    private val key = "1233490b82d249aa983c9b62b373280c" //鱼源
+//    private val key = "1233490b82d249aa983c9b62b373280c" //鱼源
+    private val key = "221822e6128c44a98e3518e2ea321fad" //健源
 
     private lateinit var weatherBackground: ImageView   //天气背景图
     private lateinit var temperature: TextView          //实时温度
